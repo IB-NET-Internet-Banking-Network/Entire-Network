@@ -1,0 +1,44 @@
+
+
+{% extends 'base.html' %}
+
+{% block head %}
+<title> User Authentication</title>
+
+{% endblock %}
+
+{% block body %}
+<div class="bg">
+    <div class="center">
+        <h2>USER LOGIN</h2>
+    <form method="post", action="#">
+        
+    <div>
+        <input id="Name" type="text" name="name" class="inputbox" placeholder="username"> 
+    </div>
+    <br>
+    <div>
+        <input id= "Passcode" type="password" name="pass" passcode = "Passcode" class="inputbox" placeholder="password"> 
+    </div>
+    <br>
+    <div >
+        <select name="Method" id="Method" class="inputbox">
+            <option value="blank"> </option>
+            <option value="Credit card">Credit card</option>
+            <option value="Debit card">Debit card</option>
+        </select>
+    
+    </div>
+    <br>
+    
+    <div>
+        <button type="submit"  value="submit">LOGIN</button>
+    </div>
+    </form>
+    <br>
+    <div class="forget">
+        <h4>Forgot password</h4>
+    </div>
+    </div>
+    </div>
+{% endblock %}

@@ -41,7 +41,7 @@ def hello():
         # return redirect(url_for("user", usr= user))
     else:
         # For get method we will stay on the same page
-        return render_template('form1.html')
+        return render_template('loginPage.html')
 
 
 @app.route("/Debitcard/<usr>", methods = ["POST", "GET"])
