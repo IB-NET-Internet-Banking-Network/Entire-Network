@@ -5,6 +5,8 @@ Begin DATE :- 05- MARCH-2021
 """
 from flask import Flask, render_template, url_for, request, redirect
 
+
+
 app = Flask(__name__)
 
 # Secret key for security
@@ -32,7 +34,7 @@ def hello():
         if (str(methodOfPayment) == "Credit card"):
             return redirect(url_for("CreditCardPayment", usr=user))
         else:
-            return redirect(url_for("ErrorInMethodOfPayment", usr=user))
+            return (redirect(url_for("ErrorInMethodOfPayment", usr=user)))
         # Take step based on the input in the form 
         # return render_template("form1.html")
         
@@ -41,21 +43,17 @@ def hello():
         # return redirect(url_for("user", usr= user))
     else:
         # For get method we will stay on the same page
-        return render_template('loginPage.html')
+        return (render_template('loginPage.html'))
 
 
 @app.route("/Debitcard/<usr>", methods = ["POST", "GET"])
 def DebitCardPayment(usr):
-    return f"""<h1>Hello, {usr}</h1>
-            <h2>Method of payment is Debit card  </h2>
-            <h3>This page is under development</h3>"""
+    return render_template('card1.html')
 
 
 @app.route("/Creditcard/<usr>", methods = ["POST", "GET"])
 def CreditCardPayment(usr):
-    return f"""<h1>Hello, {usr}</h1>
-            <h2>Method of payment is Credit card  </h2>
-            <h3>This page is under development</h3>"""
+    return render_template('card1.html')
 
 @app.route("/Error/<usr>", methods = ["POST", "GET"])
 def ErrorInMethodOfPayment(usr):
@@ -64,3 +62,4 @@ def ErrorInMethodOfPayment(usr):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
