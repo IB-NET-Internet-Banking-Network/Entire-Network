@@ -9,38 +9,54 @@
 </head>
     
     <body style="background-color:dodgerblue">
-      <h1>hello meenu mishra</h1>  
+
+
+      <h1>Hello,  {{ post }} <br>
+        Paying to the {{ nxt }}
+    </h1>
+
+    <form method="post", action="##">
+
     <div class="container">
         <div class="card-details">
             <h2>Payment Gateway</h2>
             <div class="card-num-field-group">
             <label><b>Card Number</b></label><br>
-            <input type="text" class="card-num-field" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="16">
+            <input type="text" name="cardNumber",  class="card-num-field" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19">
         </div>
+
 
         <div class="date-field-group">
             <label><b>Expiry Date</b></label><br>
-            <input type="text" class="date-field" placeholder="mm/yyyy">
+            <input type="text" name="expiryDate" class="date-field" placeholder="mm/yyyy">
             
         </div>
+
 
         <div class="cvv-field-group">
             <label><b>CVV</b></label><br>
-            <input type="password" class="cvv-field" placeholder="xxx" maxlength="3">
+            <input type="password" name="CVVNumber" class="cvv-field" placeholder="xxx" maxlength="3">
             
         </div>
 
+
+
         <div class="name-field-group">
             <label><b>Card Holder Name</b></label><br>
-            <input type="text" class="name-field" placeholder="full name">
+            <input type="text"value= "{{ post }}" class="name-field" placeholder= {{ post }}>
             </div>
             <div class="name-field-group">
                 <label><b>Amount in rupees</b></label><br>
-                <input type="number" class="name-field" placeholder="Indian rupee">
+                <input type="number" name="AmountPay" class="name-field" placeholder="Indian rupee">
                 </div>
 
-            <button type="button" class="pay-btn">Pay Now</button>
+            <!-- <button type="button" value="submit" class="pay-btn">Pay Now</button> -->
+
+            <div>
+                <button type="submit"  value="submit" class="pay-btn">Pay Now</button>
+            </div>
     </div>
+    </form>
 </div>
 </body>
 </html>
