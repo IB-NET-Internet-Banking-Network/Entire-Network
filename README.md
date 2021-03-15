@@ -12,5 +12,5 @@ that page is looking like. As of we are workingon security of the page and it's 
 ## Template
 This folder contains the all html files.
 
-1. card1.html is for payment gateway pay now option.\
+1. card1.html is for payment gateway pay now option.
 2. loginpage.html is for user authentication.
