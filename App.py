@@ -42,7 +42,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '81385de1a511d795a323d3866f4fc7c1'
 
 # decorators @ for app routing
-@app.route('/payment', methods = ["POST", "GET"])
+@app.route('/payments', methods = ["POST", "GET"])
 def hello():
     # Check the request first 
     # GET for putting content on webapp
@@ -83,7 +83,7 @@ def hello():
         return (render_template('loginPage.html'))
 
 
-@app.route("/DebitcardPAY/<usr>", methods = ["POST", "GET"])
+@app.route("/Debitcard/<usr>", methods = ["POST", "GET"])
 def DebitCardPayment(usr):
     
     merchentID = randint(0,9)
@@ -112,7 +112,7 @@ def DebitCardPayment(usr):
         return render_template('card1.html', post=str(usr), nxt=str(merchent))
 
 
-@app.route("/CreditcardPAY/<usr>", methods = ["POST", "GET"])
+@app.route("/Creditcard/<usr>", methods = ["POST", "GET"])
 def CreditCardPayment(usr):
 
     merchentID = randint(0,9)
@@ -148,8 +148,9 @@ def ErrorInMethodOfPayment(usr):
 
 @app.route("/finalPage", methods=["POST", "GET"])
 def paid():
+    print("payment in progress")
     return f""" <h1> payment is in progress..... </h1>"""
   
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port= 1000, debug=True)
 
