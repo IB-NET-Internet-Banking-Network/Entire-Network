@@ -5,11 +5,11 @@
 
 
 .container{
-    height: 550px;
-    width: 400px;
+    height: 600px;
+    width: 450px;
     background-color: #267326;
     top: 50%;
-    left: 1300px;
+    left: 1500px;
     transform: translate(-50%,-50%);
     position: absolute;
 }
@@ -20,6 +20,12 @@
     border-bottom-right-radius: 80px;
 
 }
+.input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }  
 .box p{
     text-align: center;
     padding-top: 20px;
@@ -48,7 +54,7 @@
 .card-details label{
    font-size: 18px; 
    line-height: 20px;
-/* font-family: ; */
+    font-family: serif;
 }
 .card-num-field-group{
     margin-top: 20px;
@@ -57,11 +63,13 @@
 .date-field-group{
     margin-top: 10px;
     display: inline-block;
+    width: 50%;
 }
 .cvv-field-group{
     margin-top: 10px;
+    width: 50%;
     display: inline-block;
-    float: right;
+    /* float: right; */
 }
 .name-field-group{
     margin-top: 10px;
@@ -75,8 +83,8 @@
 }
 .card-details input{
   border: 1px solid #ccc;  
-  height: 30px;
-  padding: 15px;
+  height: 20px;
+  padding: 5px;
   font-size: 15px;
 
 }

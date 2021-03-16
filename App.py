@@ -23,8 +23,12 @@ merchentList = {
     "3":"Intershala",
     "4":"Make My Trip",
     "5":"Practo",
-    "6":"mkmishra2000"
+    "6":"mkmishra2000",
+    "7":"Ola cabs",
+    "8":"Uber cabs",
+    "9":"IRTC train ticket"
 }
+
 def userAuthentication(username, password):
     print("This user rgistered password is :", ListOfUsers[username])
     if (ListOfUsers[username] == password):
@@ -79,10 +83,10 @@ def hello():
         return (render_template('loginPage.html'))
 
 
-@app.route("/Debitcard/<usr>", methods = ["POST", "GET"])
+@app.route("/DebitcardPAY/<usr>", methods = ["POST", "GET"])
 def DebitCardPayment(usr):
     
-    merchentID = randint(0,6)
+    merchentID = randint(0,9)
     merchent = merchentList[str(merchentID)]
     print(str(usr))
 
@@ -105,12 +109,14 @@ def DebitCardPayment(usr):
 
         return redirect(url_for("paid"))
     else:
-        return render_template('card1.html', post=str(usr), nxt=str(merchent) )
+        return render_template('card1.html', post=str(usr), nxt=str(merchent))
 
 
-@app.route("/Creditcard/<usr>", methods = ["POST", "GET"])
+@app.route("/CreditcardPAY/<usr>", methods = ["POST", "GET"])
 def CreditCardPayment(usr):
-    merchent = "ganesh"
+
+    merchentID = randint(0,9)
+    merchent = merchentList[str(merchentID)]
     print(str(usr))
 
     if request.method == "POST":
@@ -132,7 +138,7 @@ def CreditCardPayment(usr):
 
         return redirect(url_for("paid"))
     else:
-        return render_template('card1.html', post=str(usr), nxt=str(merchent) )
+        return render_template('card1.html', post=str(usr), nxt=str(merchent))
 
 
 @app.route("/Error/<usr>", methods = ["POST", "GET"])
@@ -143,7 +149,7 @@ def ErrorInMethodOfPayment(usr):
 @app.route("/finalPage", methods=["POST", "GET"])
 def paid():
     return f""" <h1> payment is in progress..... </h1>"""
-
+  
 if __name__ == "__main__":
     app.run(debug=True)
 

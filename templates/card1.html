@@ -15,9 +15,10 @@
         Paying to the {{ nxt }}
     </h1>
 
-    <form method="post", action="##">
+    
 
     <div class="container">
+        <form method="post", action="##">
         <div class="card-details">
             <h2>Payment Gateway</h2>
             <div class="card-num-field-group">
@@ -39,22 +40,22 @@
             
         </div>
 
-
-
         <div class="name-field-group">
             <label><b>Card Holder Name</b></label><br>
-            <input type="text"value= "{{ post }}" class="name-field" placeholder= {{ post }}>
-            </div>
-            <div class="name-field-group">
-                <label><b>Amount in rupees</b></label><br>
-                <input type="number" name="AmountPay" class="name-field" placeholder="Indian rupee">
-                </div>
+            <input type="text"value= "{{ post }}" class="name-field">
+        </div>
+
+           
+         <div class="name-field-group">
+            <label><b>Amount in rupees</b></label><br>
+            <input type="number" name="AmountPay" class="name-field" placeholder="Indian rupee">
+        </div>
 
             <!-- <button type="button" value="submit" class="pay-btn">Pay Now</button> -->
 
-            <div>
-                <button type="submit"  value="submit" class="pay-btn">Pay Now</button>
-            </div>
+        <div>
+            <button type="submit"  value="submit" class="pay-btn">Pay Now</button>
+        </div>
     </div>
     </form>
 </div>
