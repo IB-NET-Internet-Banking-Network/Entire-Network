@@ -22,14 +22,14 @@
         <div class="card-details">
             <h2>Payment Gateway</h2>
             <div class="card-num-field-group">
-            <label><b>Card Number</b></label><br>
-            <input type="text" name="cardNumber",  class="card-num-field" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19">
+            <label for = "Card"><b>Card Number</b></label><br>
+            <input type="text" name="cardNumber",  class="card-num-field" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="16">
         </div>
 
 
         <div class="date-field-group">
             <label><b>Expiry Date</b></label><br>
-            <input type="text" name="expiryDate" class="date-field" placeholder="mm/yyyy">
+            <input type="month" name="expiryDate" class="date-field" min="2021-01" max="2029-01">
             
         </div>
 
@@ -48,7 +48,7 @@
            
          <div class="name-field-group">
             <label><b>Amount in rupees</b></label><br>
-            <input type="number" name="AmountPay" class="name-field" placeholder="Indian rupee">
+            <input type="number" step= "0.01" name="AmountPay" class="name-field" placeholder="Indian rupee" min="0" max="100000000.00" maxlength="8">
         </div>
 
             <!-- <button type="button" value="submit" class="pay-btn">Pay Now</button> -->
