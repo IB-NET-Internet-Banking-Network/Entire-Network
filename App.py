@@ -1,10 +1,11 @@
 """
 Author :- Manas Kumar mishra
 Task :- Design a web app for payment gateway process
-Begin DATE :- 05- MARCH-2021
+Begin DATE :- 05- MARCH- 2021
 """
 from flask import Flask, render_template, url_for, request, redirect
 from random import randint
+
 # The formal list for registered users
 # It is a global variable that can be assesible from anypart of the code
 
@@ -14,6 +15,10 @@ ListOfUsers = {
     "MISS KR":"EDM18B026",
     "GANESH":"ESD18I006"
 }
+
+global numberOfAtm
+numberOfAtm =0
+
 
 global merchentList
 merchentList = {
@@ -28,12 +33,19 @@ merchentList = {
     "8":"Uber cabs",
     "9":"IRTC train ticket"
 }
-
+"""
+Function for authentication of the users
+Input is username and password from the payment gateway page 
+Output is True if user is correct else False
+""" 
 def userAuthentication(username, password):
     print("This user rgistered password is :", ListOfUsers[username])
     if (ListOfUsers[username] == password):
         print("Correct password")
         return True
+    else:
+        return False
+
 
 
 app = Flask(__name__)
@@ -44,6 +56,8 @@ app.config['SECRET_KEY'] = '81385de1a511d795a323d3866f4fc7c1'
 # decorators @ for app routing
 @app.route('/payments', methods = ["POST", "GET"])
 def hello():
+
+    megOnPage = ""  # Message for users
     # Check the request first 
     # GET for putting content on webapp
     # POST for receive the content from webapp
@@ -54,6 +68,11 @@ def hello():
         password = request.form["pass"]
         methodOfPayment = request.form["Method"]
 
+        if (str(user) == "" or str(password)==""):
+            megOnPage = "Please fill the login details !!!"
+            return (render_template('loginPage.html', message = megOnPage))
+
+        
         # print the username and password
         print("Username " + str(user))
         print("Password "+ str(password))
@@ -72,12 +91,7 @@ def hello():
 
         else:
             return (render_template('loginPage.html'))
-        # Take step based on the input in the form 
-        # return render_template("form1.html")
-        
-
-        # for new page we can try
-        # return redirect(url_for("user", usr= user))
+       
     else:
         # For get method we will stay on the same page
         return (render_template('loginPage.html'))
@@ -85,10 +99,10 @@ def hello():
 
 @app.route("/Debitcard/<usr>", methods = ["POST", "GET"])
 def DebitCardPayment(usr):
-    
+    message = "" # user information
     merchentID = randint(0,9)
     merchent = merchentList[str(merchentID)]
-    print(str(usr))
+    print("Login user :",str(usr))
 
     if request.method == "POST":
 
@@ -97,27 +111,33 @@ def DebitCardPayment(usr):
         ExpiryDate = request.form["expiryDate"]
         CVVnumber = request.form["CVVNumber"]
         AmountForPaying = request.form["AmountPay"]
+        CardHolderName = request.form["CardHolderName"]
 
+        # Check the data are filled by user or not
+        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)==""):
+            print("No details")
+            message = "Please fill, proper full  details !!!"
+            return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
+        else:
+            print("Card Number is :", str(UsercardNumber))
+            print("Expiry date is :", str(ExpiryDate))
+            print("Cvv Number is :", str(CVVnumber))
+            print("Card Holder Name :", str(usr))
+            print("Amount for paying :", str(AmountForPaying))
+            print("Card Holder name :", str(CardHolderName))
+            print("method of payment is debit card")
 
-        # printing the card information from the page
-        print("Card Number is :", str(UsercardNumber))
-        print("Expiry date is :", str(ExpiryDate))
-        print("Cvv Number is :", str(CVVnumber))
-        print("Card Holder Name :", str(usr))
-        print("Amount for paying :", str(AmountForPaying))
-        print("Method of payment is debit card")
-
-        return redirect(url_for("paid"))
+            return redirect(url_for("paid"))
     else:
-        return render_template('card1.html', post=str(usr), nxt=str(merchent))
+        return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
 
 
 @app.route("/Creditcard/<usr>", methods = ["POST", "GET"])
 def CreditCardPayment(usr):
-
+    message = "" # User Information
     merchentID = randint(0,9)
     merchent = merchentList[str(merchentID)]
-    print(str(usr))
+    print("Login user :",str(usr))
 
     if request.method == "POST":
 
@@ -126,19 +146,25 @@ def CreditCardPayment(usr):
         ExpiryDate = request.form["expiryDate"]
         CVVnumber = request.form["CVVNumber"]
         AmountForPaying = request.form["AmountPay"]
+        CardHolderName = request.form["CardHolderName"]
 
+        # Check the data are filled by user or not 
+        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)==""):
+            print("No details")
+            message = "Please fill, proper full  details !!!" # Display message to the user
+            return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
+        else:
+            print("Card Number is :", str(UsercardNumber))
+            print("Expiry date is :", str(ExpiryDate))
+            print("Cvv Number is :", str(CVVnumber))
+            print("Card Holder Name :", str(usr))
+            print("Amount for paying :", str(AmountForPaying))
+            print("Card Holder name :", str(CardHolderName))
+            print("method of payment is debit card")
 
-        # printing the card information from the page
-        print("Card Number is :", str(UsercardNumber))
-        print("Expiry date is :", str(ExpiryDate))
-        print("Cvv Number is :", str(CVVnumber))
-        print("Card Holder Name :", str(usr))
-        print("Amount for paying :", str(AmountForPaying))
-        print("method of payment is credit card")
-
-        return redirect(url_for("paid"))
+            return redirect(url_for("paid"))
     else:
-        return render_template('card1.html', post=str(usr), nxt=str(merchent))
+        return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
 
 
 @app.route("/Error/<usr>", methods = ["POST", "GET"])
