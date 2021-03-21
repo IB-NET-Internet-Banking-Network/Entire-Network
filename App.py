@@ -5,6 +5,75 @@ Begin DATE :- 05- MARCH- 2021
 """
 from flask import Flask, render_template, url_for, request, redirect
 from random import randint
+from socket import*
+
+
+# Estiblish the connection to the payment processor
+payProPortNumber = 9999       #payment processor port number
+payproAddress = '192.168.43.99' #payment processor IP address
+ #Define the instance of the socket
+
+# print("Not able to connect the payment processor!!!")
+
+def sendData(fullData, paymentAmount):
+    
+    payProPortNumber = 9999       #payment processor port number
+    payproAddress = '192.168.43.99' #payment processor IP address
+
+    paygateSocket = socket(AF_INET, SOCK_STREAM) #Define the instance of the socket
+
+    try:
+        # connect to the payment processor
+        paygateSocket.connect((payproAddress, payProPortNumber))
+        print("Server is connected...")
+    except:
+        print("Not able to connect the payment processor!!!")
+
+    fulldata = str(fullData)
+
+    paygateSocket.send(fulldata.encode())
+
+    # confirmation
+    confirmation = paygateSocket.recv(2048)
+    
+    paygateSocket.send(str(paymentAmount).encode())
+        
+    print("Data sent...:)")
+    paygateSocket.close()
+
+    return confirmation.decode()
+
+
+def send_otp(UserOTP):
+    payProPortNumber = 9999       #payment processor port number
+    payproAddress = '192.168.43.99' #payment processor IP address
+
+    otpsocket = socket(AF_INET, SOCK_STREAM)
+
+    try:
+        otpsocket.connect((payproAddress, payProPortNumber))
+        print("Payment processor is connected...")
+    except:
+        print("Not able to connect the payment processor!!!")
+    
+    userotp = str(UserOTP)
+
+    otpsocket.send(userotp.encode())
+    CHeck=otpsocket.recv(1024)
+    check = CHeck.decode()
+
+    otpsocket.close()
+    return check
+
+
+
+
+
+
+
+
+
+
 
 # The formal list for registered users
 # It is a global variable that can be assesible from anypart of the code
@@ -16,9 +85,8 @@ ListOfUsers = {
     "GANESH":"ESD18I006"
 }
 
-global numberOfAtm
-numberOfAtm =0
-
+# global numberOfAtm
+# numberOfAtm =0
 
 global merchentList
 merchentList = {
@@ -33,6 +101,7 @@ merchentList = {
     "8":"Uber cabs",
     "9":"IRTC train ticket"
 }
+
 """
 Function for authentication of the users
 Input is username and password from the payment gateway page 
@@ -47,7 +116,7 @@ def userAuthentication(username, password):
         return False
 
 
-
+# Flask operations
 app = Flask(__name__)
 
 # Secret key for security
@@ -127,6 +196,13 @@ def DebitCardPayment(usr):
             print("Card Holder name :", str(CardHolderName))
             print("method of payment is debit card")
 
+            fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
+            payingAmount = [str(AmountForPaying)]
+
+           
+            confirmation = sendData(fullData, payingAmount)
+            print("Recived confirmation about user from payment gatway :", confirmation)
+            
             return redirect(url_for("paid"))
     else:
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
@@ -161,7 +237,7 @@ def CreditCardPayment(usr):
             print("Amount for paying :", str(AmountForPaying))
             print("Card Holder name :", str(CardHolderName))
             print("method of payment is debit card")
-
+            
             return redirect(url_for("paid"))
     else:
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
@@ -172,14 +248,22 @@ def ErrorInMethodOfPayment(usr):
     return f"""<h1>ERROR , method of Payment is not given</h1>"""
 
 
-@app.route("/otpPage", methods=["POST", "GET"])
+@app.route("/otpPage/", methods=["POST", "GET"])
 def paid():
+    
     print("OTP page display")
-
+    
     if request.method == "POST":
 
         OTPnumber = request.form["OTP"]
         print("OTP is : ", str(OTPnumber))
+
+        check = send_otp(OTPnumber)
+        print(check)
+        if check == "True":
+            return f"""<h1>Payment is in progress...wait for a while : )</h1>"""
+        else:
+            return f"""<h1>WRONG OTP... payment failed !!! :( </h1>"""
         return f"""<h1>Payment is in progress...wait for a while</h1>"""
     else:
         return render_template('otp.html')
