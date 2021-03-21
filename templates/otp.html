@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+		<body style = "background-color:dodgerblue">
+		<h1><center><b>Final authentication<center><b></h1>
+		<head><font size = "12"><center><b>WARNING : Do not share this OTP number to anyone at any cost</b><center></font></head>
+
+		<style>	
+		/* Create three unequal columns that floats next to each other */
+		.column {
+		float: left;
+		padding: 10px;
+		}
+		/* Middle column */
+		.column.middle {
+		width: 70%;
+		font-size:26;
+		}
+		/* Clear floats after the columns */
+		.row:after {
+		content: "";
+		display: table;
+		clear: both;
+		}
+		/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 600px) {
+		.column.side, .column.middle {
+			width: 100%;
+		}
+		}
+				body {
+		margin:1;
+		}
+		* {
+		box-sizing: border-box;
+		}
+				img.img
+				{
+					border-radius :55%;
+				}
+				.column.side 
+				{
+					max-width:400px;
+					height:175%;
+					padding-left: 40px;
+					padding-top:40px;
+					border: 1px solid black;
+					box-sizing: border-box;
+					background-color:rgb(248, 190, 88);
+					font-size:36;
+					width: 30%;
+				}
+				#pr
+				{
+					font-size:46;
+				}
+				.pink
+				
+				{
+					color:rgb(255,50,250);
+				}
+					
+		</style>
+
+		<body>
+			<div class="row">
+			
+			
+			<div class="column middle">
+			
+			<p><font size = 12>OTP</font></p>
+				<form action="?otp" method="POST">
+				<p>
+				<label for ="otp">Enter the number </label>
+				<input id="otp" name="OTP" maxlength ="6" type = "password" placeholder="xxxxxx">
+				</p>
+				<button type="submit" value="submit">Send</button>
+				</form>
+			</div>
+
+		</body>
+	</html> 

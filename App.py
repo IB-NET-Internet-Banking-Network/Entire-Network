@@ -172,10 +172,18 @@ def ErrorInMethodOfPayment(usr):
     return f"""<h1>ERROR , method of Payment is not given</h1>"""
 
 
-@app.route("/finalPage", methods=["POST", "GET"])
+@app.route("/otpPage", methods=["POST", "GET"])
 def paid():
-    print("payment in progress")
-    return f""" <h1> payment is in progress..... </h1>"""
+    print("OTP page display")
+
+    if request.method == "POST":
+
+        OTPnumber = request.form["OTP"]
+        print("OTP is : ", str(OTPnumber))
+        return f"""<h1>Payment is in progress...wait for a while</h1>"""
+    else:
+        return render_template('otp.html')
+
   
 if __name__ == "__main__":
     app.run(port= 1000, debug=True)
