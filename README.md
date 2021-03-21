@@ -1,7 +1,9 @@
+
 # Entire-Network
 It contains, all nodes and important points for a Internet Banking Network system from user to bank.
 
 Initial Author :- Manas Kumar Mishra
+Team mates :-  Ganesh T S and Karthika Rajesh
 ## App.py
 
 It is hosting full payment gateway, in that user can put their input for the payment gateway.
@@ -29,3 +31,5 @@ It contains all css style files
 
 ## Full working of the paymnet gateway
 After putting the details in login page it will led us to a payment gateway page where we can enter the card details and amount.  we have filled the ganesh details then page was loking like this. Randomly it is choosing a merchent for paying.
+
+![Paymentgateway_10](https://user-images.githubusercontent.com/47395502/111904535-7ee5f480-8a6d-11eb-9dab-790ea36f3176.PNG)
