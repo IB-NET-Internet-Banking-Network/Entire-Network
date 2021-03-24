@@ -36,4 +36,8 @@ After putting the details in login page it will led us to a payment gateway page
 
 After that it will show the final authentication page (OTP) page. That will look like this.\
 ![OTP_page](https://user-images.githubusercontent.com/47395502/112095782-1ad54480-8bc3-11eb-8dcf-5625aef2ec36.PNG)
+
+# Working\Simulation of this project
+![paymentGateway](https://user-images.githubusercontent.com/47395502/112278781-30bd3500-8ca9-11eb-92f0-ead17afba5ad.gif)
+
 Thank you
