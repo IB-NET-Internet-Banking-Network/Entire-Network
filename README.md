@@ -40,4 +40,9 @@ After that it will show the final authentication page (OTP) page. That will look
 # Working\Simulation of this project
 ![paymentGateway](https://user-images.githubusercontent.com/47395502/112278781-30bd3500-8ca9-11eb-92f0-ead17afba5ad.gif)
 
+![paymentGateway2](https://user-images.githubusercontent.com/47395502/112279831-58f96380-8caa-11eb-8607-58b99a1ab272.gif)
+
+![paymentGateway3](https://user-images.githubusercontent.com/47395502/112280281-dc1ab980-8caa-11eb-9764-05dbfa46484d.gif)
+
+
 Thank you
