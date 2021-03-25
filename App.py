@@ -32,13 +32,17 @@ def sendData(fullData, paymentAmount):
     fulldata = str(fullData)
 
     paygateSocket.send(fulldata.encode())
-
+    print("User information sent to the payment processor, and waiting for confirmation...")
     # confirmation
     confirmation = paygateSocket.recv(2048)
+    print("Response received...")
+
+    # TODO:- BASED ON Confirmation make desicions.
     
+    # Amount details
     paygateSocket.send(str(paymentAmount).encode())
-        
-    print("Data sent...:)")
+    print(" Amount Data sent...:)")
+
     paygateSocket.close()
 
     return confirmation.decode()
@@ -64,12 +68,6 @@ def send_otp(UserOTP):
 
     otpsocket.close()
     return check
-
-
-
-
-
-
 
 
 
@@ -183,7 +181,7 @@ def DebitCardPayment(usr):
         CardHolderName = request.form["CardHolderName"]
 
         # Check the data are filled by user or not
-        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)==""):
+        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)=="" or str(CardHolderName)==""):
             print("No details")
             message = "Please fill, proper full  details !!!"
             return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
@@ -225,7 +223,7 @@ def CreditCardPayment(usr):
         CardHolderName = request.form["CardHolderName"]
 
         # Check the data are filled by user or not 
-        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)==""):
+        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)=="" or str(CardHolderName)==""):
             print("No details")
             message = "Please fill, proper full  details !!!" # Display message to the user
             return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
@@ -256,15 +254,17 @@ def paid():
     if request.method == "POST":
 
         OTPnumber = request.form["OTP"]
-        print("OTP is : ", str(OTPnumber))
+        print("OTP filled by user : ", str(OTPnumber))
 
         check = send_otp(OTPnumber)
         print(check)
         if check == "True":
+            print("Correct OTP, your are paying...")
             return f"""<h1>Payment is in progress...wait for a while : )</h1>"""
         else:
+            print("Worng OTP, payment failed !!!")
             return f"""<h1>WRONG OTP... payment failed !!! :( </h1>"""
-        return f"""<h1>Payment is in progress...wait for a while</h1>"""
+       
     else:
         return render_template('otp.html')
 
