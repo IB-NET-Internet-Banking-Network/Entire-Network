@@ -6,6 +6,7 @@ Begin DATE :- 05- MARCH- 2021
 from flask import Flask, render_template, url_for, request, redirect
 from random import randint
 from socket import*
+from datetime import datetime
 
 
 # Estiblish the connection to the payment processor
@@ -113,6 +114,28 @@ def userAuthentication(username, password):
     else:
         return False
 
+"""
+Fuunction for printing the data on the backend screen
+input is the details of the user entered on the page
+Output is nothing but in between it is printing the information
+"""
+def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderName, AmountForPaying, cardInfo):
+
+    now = datetime.now()
+    print("Login user        : ", loginusesr)
+    print("Card number       : ", UsercardNumber)
+    print("Expiry Date       : ", ExpiryDate)
+    print("CVV number        : ", CVVNumber)
+    print("Card Holder name  : ", CardHolderName)
+    print("Amount requested  : ", AmountForPaying)
+    print("Time of payment   : ", now)
+    if cardInfo ==1:
+        print("Method of payment :  Debit card")
+    elif cardInfo == 0:
+        print("Method of payment :  Credit card")
+    else:
+        print("No card details !!!!!!!!!!!!!!!!!")
+
 
 # Flask operations
 app = Flask(__name__)
@@ -169,7 +192,6 @@ def DebitCardPayment(usr):
     message = "" # user information
     merchentID = randint(0,9)
     merchent = merchentList[str(merchentID)]
-    print("Login user :",str(usr))
 
     if request.method == "POST":
 
@@ -186,20 +208,13 @@ def DebitCardPayment(usr):
             message = "Please fill, proper full  details !!!"
             return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
         else:
-            print("Card Number is :", str(UsercardNumber))
-            print("Expiry date is :", str(ExpiryDate))
-            print("Cvv Number is :", str(CVVnumber))
-            print("Card Holder Name :", str(usr))
-            print("Amount for paying :", str(AmountForPaying))
-            print("Card Holder name :", str(CardHolderName))
-            print("method of payment is debit card")
+            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), 1)
 
             fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
             payingAmount = [str(AmountForPaying)]
 
-           
             confirmation = sendData(fullData, payingAmount)
-            print("Recived confirmation about user from payment gatway :", confirmation)
+            print("Recived confirmation about user from payment Processor :", confirmation)
             
             return redirect(url_for("paid"))
     else:
@@ -228,14 +243,14 @@ def CreditCardPayment(usr):
             message = "Please fill, proper full  details !!!" # Display message to the user
             return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
         else:
-            print("Card Number is :", str(UsercardNumber))
-            print("Expiry date is :", str(ExpiryDate))
-            print("Cvv Number is :", str(CVVnumber))
-            print("Card Holder Name :", str(usr))
-            print("Amount for paying :", str(AmountForPaying))
-            print("Card Holder name :", str(CardHolderName))
-            print("method of payment is debit card")
+            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), 0)
             
+            fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
+            payingAmount = [str(AmountForPaying)]
+
+            confirmation = sendData(fullData, payingAmount)
+
+            print("Recived confirmation about user from payment Processor :", confirmation)
             return redirect(url_for("paid"))
     else:
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
