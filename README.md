@@ -1,7 +1,9 @@
+
 # Entire-Network
 It contains, all nodes and important points for a Internet Banking Network system from user to bank.
 
-Initial Author :- Manas Kumar Mishra
+Initial Author :- Manas Kumar Mishra\
+Team mates :-  Ganesh T S and Karthika Rajesh
 ## App.py
 
 It is hosting full payment gateway, in that user can put their input for the payment gateway.
@@ -28,4 +30,19 @@ It contains all css style files
 2. card1.css is for styling of payment gateway. 
 
 ## Full working of the paymnet gateway
-After putting the details in login page it will led us to a payment gateway page where we can enter the card details and amount.  we have filled the ganesh details then page was loking like this. Randomly it is choosing a merchent for paying.
+After putting the details in login page it will led us to a payment gateway page where we can enter the card details and amount.  We have filled the ganesh details then page was loking like this. Randomly it is choosing a merchent for paying.
+
+![Paymentgateway_10](https://user-images.githubusercontent.com/47395502/111904535-7ee5f480-8a6d-11eb-9dab-790ea36f3176.PNG)
+
+After that it will show the final authentication page (OTP) page. That will look like this.\
+![OTP_page](https://user-images.githubusercontent.com/47395502/112095782-1ad54480-8bc3-11eb-8dcf-5625aef2ec36.PNG)
+
+# Working\Simulation of this project
+![paymentGateway](https://user-images.githubusercontent.com/47395502/112278781-30bd3500-8ca9-11eb-92f0-ead17afba5ad.gif)
+
+![paymentGateway2](https://user-images.githubusercontent.com/47395502/112279831-58f96380-8caa-11eb-8607-58b99a1ab272.gif)
+
+![paymentGateway3](https://user-images.githubusercontent.com/47395502/112280281-dc1ab980-8caa-11eb-9764-05dbfa46484d.gif)
+
+
+Thank you
