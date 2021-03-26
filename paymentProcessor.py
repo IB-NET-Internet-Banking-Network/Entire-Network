@@ -45,7 +45,7 @@ while 1:
 	
 	# Generate the otp Number
 	Otp_Generation = randint(100001, 999999)
-	print("This user OTP (ONE TIME PASSWORD) is: ", Otp_Generation)
+	
 	
 	# Receive the payment amount
 	recvAmount = paygateInstance.recv(4096)
@@ -56,6 +56,8 @@ while 1:
 	
 	print(recvMsg)
 	print("Amount requested :", recvAmt)
+
+	print("This user OTP (ONE TIME PASSWORD) is: ", Otp_Generation)
 	
 	paygateInstance.close()
 	
@@ -65,10 +67,10 @@ while 1:
 	
 	recvOTP = otpinstance.recv(2048)
 	recvotp = recvOTP.decode()
-	print(type(str(Otp_Generation)))
-	print(type(recvotp))
+	# print(type(str(Otp_Generation)))
+	# print(type(recvotp))
 	
-	print(int(recvotp)+Otp_Generation)
+	# print(int(recvotp)+Otp_Generation)
 	
 	print("Received OTP from user : ", recvotp)
 	if (recvotp == str(Otp_Generation)):

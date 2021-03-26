@@ -6,6 +6,7 @@ Begin DATE :- 05- MARCH- 2021
 from flask import Flask, render_template, url_for, request, redirect
 from random import randint
 from socket import*
+from datetime import datetime
 
 
 # Estiblish the connection to the payment processor
@@ -32,13 +33,17 @@ def sendData(fullData, paymentAmount):
     fulldata = str(fullData)
 
     paygateSocket.send(fulldata.encode())
-
+    print("User information sent to the payment processor, and waiting for confirmation...")
     # confirmation
     confirmation = paygateSocket.recv(2048)
+    print("Response received...")
+
+    # TODO:- BASED ON Confirmation make desicions.
     
+    # Amount details
     paygateSocket.send(str(paymentAmount).encode())
-        
-    print("Data sent...:)")
+    print(" Amount Data sent...:)")
+
     paygateSocket.close()
 
     return confirmation.decode()
@@ -64,12 +69,6 @@ def send_otp(UserOTP):
 
     otpsocket.close()
     return check
-
-
-
-
-
-
 
 
 
@@ -114,6 +113,28 @@ def userAuthentication(username, password):
         return True
     else:
         return False
+
+"""
+Fuunction for printing the data on the backend screen
+input is the details of the user entered on the page
+Output is nothing but in between it is printing the information
+"""
+def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderName, AmountForPaying, cardInfo):
+
+    now = datetime.now()
+    print("Login user        : ", loginusesr)
+    print("Card number       : ", UsercardNumber)
+    print("Expiry Date       : ", ExpiryDate)
+    print("CVV number        : ", CVVNumber)
+    print("Card Holder name  : ", CardHolderName)
+    print("Amount requested  : ", AmountForPaying)
+    print("Time of payment   : ", now)
+    if cardInfo ==1:
+        print("Method of payment :  Debit card")
+    elif cardInfo == 0:
+        print("Method of payment :  Credit card")
+    else:
+        print("No card details !!!!!!!!!!!!!!!!!")
 
 
 # Flask operations
@@ -171,7 +192,6 @@ def DebitCardPayment(usr):
     message = "" # user information
     merchentID = randint(0,9)
     merchent = merchentList[str(merchentID)]
-    print("Login user :",str(usr))
 
     if request.method == "POST":
 
@@ -183,25 +203,18 @@ def DebitCardPayment(usr):
         CardHolderName = request.form["CardHolderName"]
 
         # Check the data are filled by user or not
-        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)==""):
+        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)=="" or str(CardHolderName)==""):
             print("No details")
             message = "Please fill, proper full  details !!!"
             return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
         else:
-            print("Card Number is :", str(UsercardNumber))
-            print("Expiry date is :", str(ExpiryDate))
-            print("Cvv Number is :", str(CVVnumber))
-            print("Card Holder Name :", str(usr))
-            print("Amount for paying :", str(AmountForPaying))
-            print("Card Holder name :", str(CardHolderName))
-            print("method of payment is debit card")
+            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), 1)
 
             fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
             payingAmount = [str(AmountForPaying)]
 
-           
             confirmation = sendData(fullData, payingAmount)
-            print("Recived confirmation about user from payment gatway :", confirmation)
+            print("Recived confirmation about user from payment Processor :", confirmation)
             
             return redirect(url_for("paid"))
     else:
@@ -225,19 +238,19 @@ def CreditCardPayment(usr):
         CardHolderName = request.form["CardHolderName"]
 
         # Check the data are filled by user or not 
-        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)==""):
+        if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)=="" or str(CardHolderName)==""):
             print("No details")
             message = "Please fill, proper full  details !!!" # Display message to the user
             return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
         else:
-            print("Card Number is :", str(UsercardNumber))
-            print("Expiry date is :", str(ExpiryDate))
-            print("Cvv Number is :", str(CVVnumber))
-            print("Card Holder Name :", str(usr))
-            print("Amount for paying :", str(AmountForPaying))
-            print("Card Holder name :", str(CardHolderName))
-            print("method of payment is debit card")
+            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), 0)
             
+            fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
+            payingAmount = [str(AmountForPaying)]
+
+            confirmation = sendData(fullData, payingAmount)
+
+            print("Recived confirmation about user from payment Processor :", confirmation)
             return redirect(url_for("paid"))
     else:
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
@@ -256,15 +269,17 @@ def paid():
     if request.method == "POST":
 
         OTPnumber = request.form["OTP"]
-        print("OTP is : ", str(OTPnumber))
+        print("OTP filled by user : ", str(OTPnumber))
 
         check = send_otp(OTPnumber)
         print(check)
         if check == "True":
+            print("Correct OTP, your are paying...")
             return f"""<h1>Payment is in progress...wait for a while : )</h1>"""
         else:
+            print("Worng OTP, payment failed !!!")
             return f"""<h1>WRONG OTP... payment failed !!! :( </h1>"""
-        return f"""<h1>Payment is in progress...wait for a while</h1>"""
+       
     else:
         return render_template('otp.html')
 
