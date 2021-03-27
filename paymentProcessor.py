@@ -47,6 +47,7 @@ while 1:
 	if(recvMsg==list(dataofUsers['MANAS']) or recvMsg==list(dataofUsers['MISS KR']) or recvMsg == list(dataofUsers['GANESH'])):
 		paygateInstance.send("Ture".encode())
 
+		# Receive the amount details
 		recvAmount = payProInstance.recv(2048)
 
 		print("Amount requested :", recvAmt)
