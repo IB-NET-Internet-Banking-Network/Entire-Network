@@ -31,6 +31,7 @@ payProInstance = socket(AF_INET, SOCK_STREAM)
 payProInstance.bind(('',payProPortNumber))
 payProInstance.listen(1)
 
+
 print("Payment processor is listening...")
 while 1:
 	
@@ -40,21 +41,30 @@ while 1:
 	
 	recvMessage = paygateInstance.recv(4096)
 	print("Something RECEIVED...:)")
+
+	recvMsg = give_list(recvMessage)
 	
-	paygateInstance.send("Ture".encode())
+	if(recvMsg==list(dataofUsers['MANAS']) or recvMsg==list(dataofUsers['MISS KR']) or recvMsg == list(dataofUsers['GANESH'])):
+		paygateInstance.send("Ture".encode())
+
+		recvAmount = payProInstance.recv(2048)
+
+		print("Amount requested :", recvAmt)
+
+	else:
+		paygateInstance.send("False".encode())
+
+		print("Wrong detalis")
+
+	
 	
 	# Generate the otp Number
 	Otp_Generation = randint(100001, 999999)
 	
 	
-	# Receive the payment amount
-	recvAmount = paygateInstance.recv(4096)
-	
-	
-	recvMsg = give_list(recvMessage)
 	recvAmt = give_list(recvAmount)
 	
-	print(recvMsg)
+	
 	print("Amount requested :", recvAmt)
 
 	print("This user OTP (ONE TIME PASSWORD) is: ", Otp_Generation)
