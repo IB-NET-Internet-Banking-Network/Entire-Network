@@ -32,15 +32,20 @@ def sendData(fullData, paymentAmount):
 
     fulldata = str(fullData)
 
+    # Todo:- encryption
+
     paygateSocket.send(fulldata.encode())
     print("User information sent to the payment processor, and waiting for confirmation...")
     # confirmation
+    
+    # Todo :- Decryption
     confirmation = paygateSocket.recv(2048)
     print("Response received...")
 
     # TODO:- BASED ON Confirmation make desicions.
     
     # Amount details
+
     paygateSocket.send(str(paymentAmount).encode())
     print(" Amount Data sent...:)")
 
