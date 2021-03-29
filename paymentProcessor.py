@@ -51,7 +51,7 @@ while 1:
 		# Receive the amount details
 		recvAmount = paygateInstance.recv(2048)
 
-		print(recvAmount)
+		# print(recvAmount)
 		recvAmt = give_list(recvAmount)
 		print("Amount requested :", recvAmt[0])
 

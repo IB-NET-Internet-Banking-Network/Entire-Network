@@ -22,7 +22,7 @@ Input is details of the users and payment Amount with transaction time
 Output is the confirmation about the user and otp page display eligibility
 """
 def sendData(fullData, paymentAmount):
-    
+
     
     payProPortNumber = 9999       #payment processor port number
     payproAddress = '192.168.43.99' #payment processor IP address
@@ -140,6 +140,27 @@ def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderNam
         print("Method of payment :  Credit card")
     else:
         print("No card details !!!!!!!!!!!!!!!!!")
+
+    PutData = open("Payment_Gateway_record.txt", "a")
+    messageinput0 = ("-------------------------------------------------------"+"\n")
+    messageinput1 = ("**Login user           : "+ loginusesr+"\n")
+    messageinput2 = ("**Card number          : "+ UsercardNumber+"\n")
+    messageinput3 = ("**Expiry Date          : "+ ExpiryDate+"\n")
+    messageinput4 = ("**CVV number           : "+ CVVNumber+"\n")
+    messageinput5 = ("**Card holder name     : "+ CardHolderName+"\n")
+    messageinput6 = ("**Amount Requested     : "+ AmountForPaying+"\n")
+    messageinput7 = ("**Time of transaction  : "+ str(now)+"\n")
+    messageinput8 = ("---------------------------------------------------------"+"\n")
+    PutData.write(messageinput0)
+    PutData.write(messageinput1)
+    PutData.write(messageinput2)
+    PutData.write(messageinput3)
+    PutData.write(messageinput4)
+    PutData.write(messageinput5)
+    PutData.write(messageinput6)
+    PutData.write(messageinput7)
+    PutData.write(messageinput8)
+    PutData.close()
 
 
 # Flask operations
