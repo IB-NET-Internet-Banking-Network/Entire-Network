@@ -16,7 +16,13 @@ payproAddress = '192.168.43.99' #payment processor IP address
 
 # print("Not able to connect the payment processor!!!")
 
+"""
+Function for sending the data to the payment processor.
+Input is details of the users and payment Amount with transaction time
+Output is the confirmation about the user and otp page display eligibility
+"""
 def sendData(fullData, paymentAmount):
+    
     
     payProPortNumber = 9999       #payment processor port number
     payproAddress = '192.168.43.99' #payment processor IP address
@@ -34,16 +40,17 @@ def sendData(fullData, paymentAmount):
 
     paygateSocket.send(fulldata.encode())
     print("User information sent to the payment processor, and waiting for confirmation...")
+   
     # confirmation
     confirmation = paygateSocket.recv(2048)
-    print("Response received...")
-
-    # TODO:- BASED ON Confirmation make desicions.
+    # print("Response received...")
+    # print(confirmation.decode())
     
-    # Amount details
-    paygateSocket.send(str(paymentAmount).encode())
-    print(" Amount Data sent...:)")
-
+    if confirmation.decode()=="True":
+        paygateSocket.send(str(paymentAmount).encode())
+        print(" Amount Data sent...:)")
+    else:
+        print("Amount data stop here, confirmation error!!!")
     paygateSocket.close()
 
     return confirmation.decode()
@@ -69,8 +76,6 @@ def send_otp(UserOTP):
 
     otpsocket.close()
     return check
-
-
 
 
 
@@ -148,16 +153,18 @@ app.config['SECRET_KEY'] = '81385de1a511d795a323d3866f4fc7c1'
 def hello():
 
     megOnPage = ""  # Message for users
+
     # Check the request first 
     # GET for putting content on webapp
     # POST for receive the content from webapp
     if request.method == "POST":
 
-        # Store the user name and Password
+        # Store the user name, Password and Method of payment
         user = request.form["name"]
         password = request.form["pass"]
         methodOfPayment = request.form["Method"]
 
+        # Check user filled the details
         if (str(user) == "" or str(password)==""):
             megOnPage = "Please fill the login details !!!"
             return (render_template('loginPage.html', message = megOnPage))
@@ -211,12 +218,17 @@ def DebitCardPayment(usr):
             backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), 1)
 
             fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
-            payingAmount = [str(AmountForPaying)]
+
+            now = datetime.now()
+            payingAmount = [str(AmountForPaying), str(now)]
 
             confirmation = sendData(fullData, payingAmount)
-            print("Recived confirmation about user from payment Processor :", confirmation)
+            print("Received confirmation about user from payment Processor :", confirmation)
             
-            return redirect(url_for("paid"))
+            if confirmation=="True":
+                return redirect(url_for("paid"))
+            else:
+                return f"""<h1>ERROR, Wrong data input</h1>"""
     else:
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
 
@@ -246,12 +258,18 @@ def CreditCardPayment(usr):
             backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), 0)
             
             fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
-            payingAmount = [str(AmountForPaying)]
+            now = datetime.now()
+            payingAmount = [str(AmountForPaying), str(now)]
 
             confirmation = sendData(fullData, payingAmount)
 
-            print("Recived confirmation about user from payment Processor :", confirmation)
-            return redirect(url_for("paid"))
+            print("Received confirmation about user from payment Processor :", confirmation)
+
+            if confirmation=="True":
+                return redirect(url_for("paid"))
+            else:
+                return f"""<h1>ERROR, Wrong data input</h1>"""
+            
     else:
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
 
