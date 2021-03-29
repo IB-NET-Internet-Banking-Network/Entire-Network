@@ -11,16 +11,16 @@ global dataofUsers
 dataofUsers ={
 	'MANAS':['MANAS', '1001 0110 2002 0011', '2023-07-31', '000', 'MANAS KUMAR MISHRA'],
 	'MISS KR':['MISS KR','1001 0110 2002 0026','2023-07-31','001','KARTHIKA RAJESH'],
-	"GANESH":['GANESH','1001 0110 2002 0026','2023-07-31','002','GANESH T S']
+	"GANESH":['GANESH','1001 0110 2002 0006','2023-07-31','002','GANESH T S']
 }
 # function for converting the binary message into list
 # Input is receved message from payment gateway
 # output is full message in list
 def give_list(recvMessage):
 	recvMessage = recvMessage.decode()
-	
+
 	recvMessage2 = eval(recvMessage)
-	
+
 	return recvMessage2
 
 
@@ -43,13 +43,17 @@ while 1:
 	print("Something RECEIVED...:)")
 
 	recvMsg = give_list(recvMessage)
+	print(recvMsg)
 	
 	if(recvMsg==list(dataofUsers['MANAS']) or recvMsg==list(dataofUsers['MISS KR']) or recvMsg == list(dataofUsers['GANESH'])):
-		paygateInstance.send("Ture".encode())
+		paygateInstance.send("True".encode())
 
-		recvAmount = payProInstance.recv(2048)
+		# Receive the amount details
+		recvAmount = paygateInstance.recv(2048)
 
-		print("Amount requested :", recvAmt)
+		# print(recvAmount)
+		recvAmt = give_list(recvAmount)
+		print("Amount requested :", recvAmt[0])
 
 	else:
 		paygateInstance.send("False".encode())
@@ -60,12 +64,6 @@ while 1:
 	
 	# Generate the otp Number
 	Otp_Generation = randint(100001, 999999)
-	
-	
-	recvAmt = give_list(recvAmount)
-	
-	
-	print("Amount requested :", recvAmt)
 
 	print("This user OTP (ONE TIME PASSWORD) is: ", Otp_Generation)
 	
