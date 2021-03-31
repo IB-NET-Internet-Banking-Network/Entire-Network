@@ -51,6 +51,7 @@ while 1:
 		# Receive the amount details
 		recvAmount = paygateInstance.recv(2048)
 
+		# Todo:- TPS PART.
 		# print(recvAmount)
 		recvAmt = give_list(recvAmount)
 		print("Amount requested :", recvAmt[0])
