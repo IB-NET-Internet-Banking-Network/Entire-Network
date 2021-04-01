@@ -25,9 +25,15 @@ def give_list(recvMessage):
 
 
 
+
 payProPortNumber = 9999
 
+TPSportnumber = 9988
+TPSipaddress = '192.168.43.99'
+
 payProInstance = socket(AF_INET, SOCK_STREAM)
+TPSsocket = socket(AF_INET,SOCK_STREAM)
+
 payProInstance.bind(('',payProPortNumber))
 payProInstance.listen(1)
 
@@ -36,7 +42,7 @@ print("Payment processor is listening...")
 while 1:
 	
 	paygateInstance, paygetAddress = payProInstance.accept()
-	
+	TPSsocket.connect((TPSipaddress, TPSportnumber))
 	print("Connection excepted...:)")
 	
 	recvMessage = paygateInstance.recv(4096)
@@ -51,13 +57,24 @@ while 1:
 		# Receive the amount details
 		recvAmount = paygateInstance.recv(2048)
 
+		paygateInstance.close()
+
 		# Todo:- TPS PART.
+
+		TPSsocket.send("10".encode())
+
+		dataformTps = TPSsocket.recv(2048)
+
+		print("Data from the TPS :- ", dataformTps.decode())
+		TPSsocket.close()
+
 		# print(recvAmount)
 		recvAmt = give_list(recvAmount)
 		print("Amount requested :", recvAmt[0])
 
 	else:
 		paygateInstance.send("False".encode())
+		paygateInstance.close()
 
 		print("Wrong detalis")
 
@@ -68,7 +85,7 @@ while 1:
 
 	print("This user OTP (ONE TIME PASSWORD) is: ", Otp_Generation)
 	
-	paygateInstance.close()
+	
 	
 	otpinstance, otpaddress = payProInstance.accept()
 	
