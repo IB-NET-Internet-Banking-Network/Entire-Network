@@ -1,5 +1,6 @@
 
 from socket import*
+from random import randint
 
 # CIF Customer Information file
 # It maaps between the Card info to the Bank information
@@ -16,6 +17,7 @@ accountDetails={
     "98765432026":["00000000026", "RBIS0PFMS01"],
     "98765432006":["00000000006", "RBIS0PFMS01"],
 }
+
 # function for converting the binary message into list
 # Input is receved message from payment gateway
 # output is full message in list
@@ -25,6 +27,15 @@ def give_list(recvMessage):
 	recvMessage2 = eval(recvMessage)
 
 	return recvMessage2
+
+
+
+def otp_gen():
+    otpgenerated = randint(100001, 999999)
+
+    print("Generated OTP is :- ", otpgenerated)
+
+    return otpgenerated
 
 
 
@@ -53,6 +64,20 @@ while 1:
     print(cardNumber)
     print(CIF_number[str(cardNumber)])
 
+    OTP = otp_gen()
+
+    receivedOtp=ppInstance.recv(2048)
+
+    recvotp = receivedOtp.decode()
+
+    print("RECEIVED OTP from the user :- ",recvotp)
+
+    if recvotp == str(OTP):
+        ppInstance.send("True".encode())
+    else:
+        ppInstance.send("False".encode())
+
+    ppInstance.close()
     # ppInstance.send("1".encode())
 
 

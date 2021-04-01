@@ -73,14 +73,7 @@ while 1:
 		packet = str(packet)
 		TPSsocket.send(packet.encode())
 
-		# dataformTps = TPSsocket.recv(2048)
-
-		# print("Data from the TPS :- ", dataformTps.decode())
-		TPSsocket.close()
-
-		# print(recvAmount)
 		
-
 		print("Amount requested :", recvAmt[0])
 
 	else:
@@ -89,36 +82,19 @@ while 1:
 
 		print("Wrong detalis")
 
-	
-	
-	# Generate the otp Number
-	Otp_Generation = randint(100001, 999999)
 
-	print("This user OTP (ONE TIME PASSWORD) is: ", Otp_Generation)
-	
-	
-	
 	otpinstance, otpaddress = payProInstance.accept()
 	
 	print("Ready to listen OTP...")
 	
 	recvOTP = otpinstance.recv(2048)
-	recvotp = recvOTP.decode()
-	# print(type(str(Otp_Generation)))
-	# print(type(recvotp))
-	
-	# print(int(recvotp)+Otp_Generation)
-	
-	print("Received OTP from user : ", recvotp)
-	if (recvotp == str(Otp_Generation)):
-		print("1")
-		conf =1
-		otpinstance.send("True".encode())
-	else:
-		conf =0
-		otpinstance.send(str(conf).encode())
-	
-	
+	TPSsocket.send(recvOTP)
+	print("Otp send to the TPS")
+	recv = TPSsocket.recv(2048)
+	print("Received feedback about otp")
+	otpinstance.send(recv)
+	TPSsocket.close()
+
 	otpinstance.close()
 
     

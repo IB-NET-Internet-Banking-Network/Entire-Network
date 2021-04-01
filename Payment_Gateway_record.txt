@@ -187,3 +187,13 @@
 **Paying to            : Practo
 **Time of transaction  : 2021-04-02 00:43:01.403093
 ---------------------------------------------------------
+-------------------------------------------------------
+**Login user           : MANAS
+**Card number          : 1001 0110 2002 0011
+**Expiry Date          : 2023-07-31
+**CVV number           : 000
+**Card holder name     : MANAS KUMAR MISHRA
+**Amount Requested     : 12000
+**Paying to            : Uber cabs
+**Time of transaction  : 2021-04-02 02:03:22.698127
+---------------------------------------------------------
