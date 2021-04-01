@@ -10,7 +10,7 @@ from datetime import datetime
 
 
 # Estiblish the connection to the payment processor
-payProPortNumber = 9999       #payment processor port number
+payProPortNumber = 9999         #payment processor port number
 payproAddress = '192.168.43.99' #payment processor IP address
  #Define the instance of the socket
 
