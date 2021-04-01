@@ -1,0 +1,15 @@
+------------------------------------------------------------------
+------------------Customer Information File-----------------------
+==> Account Number          : 00000000026
+==> IFSC code               : RBIS0PFMS01
+==> Branch code             : PFMS01
+==> Account Type            : Saving type
+==> Customer Name           : KARTHIKA RAJESH
+==> D.O.B                   : -------
+==> Registered Phone Number : 9945726031
+==> Email id                : edm18b026@iiitdm.ac.in
+==> Marital Status          : Single
+==> Current KYC Status      : Student in IIITDM kancheepuram
+==> Address                 : Bengaluru
+------------------------------------------------------------------
+------------------------------------------------------------------

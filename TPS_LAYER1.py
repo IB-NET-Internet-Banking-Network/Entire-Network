@@ -39,7 +39,7 @@ clientSocket.connect((serverName,serverPort))
 clientSocket.send(sentence.encode())
 clientSocket.recv(2048)
 
-b=datetime.datetime.now();
+b=datetime.datetime.now()
 print(" Elapsed time : ")
 print(b-a)
 

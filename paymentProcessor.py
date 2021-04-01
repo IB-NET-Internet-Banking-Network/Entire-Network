@@ -13,6 +13,7 @@ dataofUsers ={
 	'MISS KR':['MISS KR','1001 0110 2002 0026','2023-07-31','001','KARTHIKA RAJESH'],
 	"GANESH":['GANESH','1001 0110 2002 0006','2023-07-31','002','GANESH T S']
 }
+
 # function for converting the binary message into list
 # Input is receved message from payment gateway
 # output is full message in list
@@ -57,19 +58,29 @@ while 1:
 		# Receive the amount details
 		recvAmount = paygateInstance.recv(2048)
 
+		recvAmt = give_list(recvAmount)
+
 		paygateInstance.close()
 
-		# Todo:- TPS PART.
+		# Todo:- TPS PART. 
+		packet = []
+		packet.append(recvMsg[1])
+		packet.append(recvMsg[4])
+		packet.append(recvAmt[0])
+		packet.append(recvAmt[1])
+		packet.append(recvAmt[2])
 
-		TPSsocket.send("10".encode())
+		packet = str(packet)
+		TPSsocket.send(packet.encode())
 
-		dataformTps = TPSsocket.recv(2048)
+		# dataformTps = TPSsocket.recv(2048)
 
-		print("Data from the TPS :- ", dataformTps.decode())
+		# print("Data from the TPS :- ", dataformTps.decode())
 		TPSsocket.close()
 
 		# print(recvAmount)
-		recvAmt = give_list(recvAmount)
+		
+
 		print("Amount requested :", recvAmt[0])
 
 	else:

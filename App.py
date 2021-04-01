@@ -52,7 +52,7 @@ def sendData(fullData, paymentAmount):
     
     if confirmation.decode()=="True":
         paygateSocket.send(str(paymentAmount).encode())
-        print(" Amount Data sent...:)")
+        print(" Amount Data sent... :- )")
     else:
         print("Amount data stop here, confirmation error!!!")
     paygateSocket.close()
@@ -110,6 +110,7 @@ merchentList = {
     "9":"IRTC train ticket"
 }
 
+
 """
 Function for authentication of the users
 Input is username and password from the payment gateway page 
@@ -123,12 +124,13 @@ def userAuthentication(username, password):
     else:
         return False
 
+
 """
 Fuunction for printing the data on the backend screen
 input is the details of the user entered on the page
 Output is nothing but in between it is printing the information
 """
-def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderName, AmountForPaying, cardInfo):
+def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderName, AmountForPaying, merchent, cardInfo):
 
     now = datetime.now()
     print("Login user        : ", loginusesr)
@@ -137,6 +139,7 @@ def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderNam
     print("CVV number        : ", CVVNumber)
     print("Card Holder name  : ", CardHolderName)
     print("Amount requested  : ", AmountForPaying)
+    print("Paying to         : ", merchent)
     print("Time of payment   : ", now)
     if cardInfo ==1:
         print("Method of payment :  Debit card")
@@ -153,8 +156,9 @@ def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderNam
     messageinput4 = ("**CVV number           : "+ CVVNumber+"\n")
     messageinput5 = ("**Card holder name     : "+ CardHolderName+"\n")
     messageinput6 = ("**Amount Requested     : "+ AmountForPaying+"\n")
-    messageinput7 = ("**Time of transaction  : "+ str(now)+"\n")
-    messageinput8 = ("---------------------------------------------------------"+"\n")
+    messageinput7 = ("**Paying to            : "+ merchent+"\n")
+    messageinput8 = ("**Time of transaction  : "+ str(now)+"\n")
+    messageinput9 = ("---------------------------------------------------------"+"\n")
     PutData.write(messageinput0)
     PutData.write(messageinput1)
     PutData.write(messageinput2)
@@ -164,6 +168,7 @@ def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderNam
     PutData.write(messageinput6)
     PutData.write(messageinput7)
     PutData.write(messageinput8)
+    PutData.write(messageinput9)
     PutData.close()
 
 
@@ -240,12 +245,12 @@ def DebitCardPayment(usr):
             message = "Please fill, proper full  details !!!"
             return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
         else:
-            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), 1)
+            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), str(merchent), 1)
 
             fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
 
             now = datetime.now()
-            payingAmount = [str(AmountForPaying), str(now)]
+            payingAmount = [str(AmountForPaying),str(merchent), str(now)]
 
             confirmation = sendData(fullData, payingAmount)
             print("Received confirmation about user from payment Processor :", confirmation)
@@ -280,11 +285,11 @@ def CreditCardPayment(usr):
             message = "Please fill, proper full  details !!!" # Display message to the user
             return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
         else:
-            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), 0)
+            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying),str(merchent), 0)
             
             fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
             now = datetime.now()
-            payingAmount = [str(AmountForPaying), str(now)]
+            payingAmount = [str(AmountForPaying), str(merchent), str(now)]
 
             confirmation = sendData(fullData, payingAmount)
 

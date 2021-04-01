@@ -1,0 +1,15 @@
+------------------------------------------------------------------
+------------------Customer Information File-----------------------
+==> Account Number          : 00000000006
+==> IFSC code               : RBIS0PFMS01
+==> Branch code             : PFMS01
+==> Account Type            : Saving type
+==> Customer Name           : GANESH T S
+==> D.O.B                   : -------
+==> Registered Phone Number : 8130983105
+==> Email id                : esd18i006@iiitdm.ac.in
+==> Marital Status          : Single
+==> Current KYC Status      : Student in IIITDM kancheepuram
+==> Address                 : Bengaluru
+------------------------------------------------------------------
+------------------------------------------------------------------
