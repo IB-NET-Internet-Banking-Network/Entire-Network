@@ -63,6 +63,7 @@ while 1:
 		paygateInstance.close()
 
 		# Todo:- TPS PART. 
+		# Here , we are making a packet for communicating with TPS layer
 		packet = []
 		packet.append(recvMsg[1])
 		packet.append(recvMsg[4])
@@ -89,12 +90,14 @@ while 1:
 	
 	recvOTP = otpinstance.recv(2048)
 	TPSsocket.send(recvOTP)
+
 	print("Otp send to the TPS")
 	recv = TPSsocket.recv(2048)
+
 	print("Received feedback about otp")
 	otpinstance.send(recv)
-	TPSsocket.close()
 
+	TPSsocket.close()
 	otpinstance.close()
 
     

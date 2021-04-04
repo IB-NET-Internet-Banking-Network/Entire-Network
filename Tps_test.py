@@ -1,3 +1,8 @@
+"""
+Author :- Manas Kumar mishra
+Task :- Test for Series connection. This is not a part of the network. it is for Testing algos
+Begin DATE :- 01- APRIL- 2021
+"""
 
 from socket import*
 from random import randint

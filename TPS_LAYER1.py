@@ -1,3 +1,9 @@
+"""
+Author :- Ganesh T S, Manas Kumar mishra
+Task :- Design for Transaction processing system (TPS). That perform the OTP part.
+Begin DATE :- 05- MARCH- 2021
+"""
+
 from socket import *
 import datetime
 from random import randint
@@ -12,7 +18,7 @@ CIF_number={
     "1001 0110 2002 0006":"98765432006"
 }
 
-
+# Mapping between the CIF number to the Account detalis
 global accountDetails
 accountDetails={
     "98765432011":["00000000011", "RBIS0PFMS01"],
@@ -30,7 +36,9 @@ def give_list(recvMessage):
 
 	return recvMessage2
 
-
+# Funtion for generating the Otp
+# Input is nothing
+# Output is Generated Otp
 
 def otp_gen():
     otpgenerated = randint(100001, 999999)
