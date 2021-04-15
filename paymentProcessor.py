@@ -65,8 +65,13 @@ while 1:
 		# Todo:- TPS PART. 
 		# Here , we are making a packet for communicating with TPS layer
 		packet = []
-		packet.append(recvMsg[1])
+		# Card number 
+		packet.append(recvMsg[1]) 
+
+		# Card holder name 
 		packet.append(recvMsg[4])
+
+		# Amount and merchent 
 		packet.append(recvAmt[0])
 		packet.append(recvAmt[1])
 		packet.append(recvAmt[2])
@@ -89,6 +94,8 @@ while 1:
 	print("Ready to listen OTP...")
 	
 	recvOTP = otpinstance.recv(2048)
+	
+	# Todo :- Encryption and decryption
 	TPSsocket.send(recvOTP)
 
 	print("Otp send to the TPS")
