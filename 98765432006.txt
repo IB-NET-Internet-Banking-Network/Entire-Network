@@ -5,11 +5,11 @@
 ==> Branch code             : PFMS01
 ==> Account Type            : Saving type
 ==> Customer Name           : GANESH T S
-==> D.O.B                   : -------
+==> D.O.B                   : 06/MAY/2000
 ==> Registered Phone Number : 8130983105
 ==> Email id                : esd18i006@iiitdm.ac.in
 ==> Marital Status          : Single
 ==> Current KYC Status      : Student in IIITDM kancheepuram
-==> Address                 : Bengaluru
+==> Address                 : 21 Ashoka Road, New Delhi
 ------------------------------------------------------------------
 ------------------------------------------------------------------

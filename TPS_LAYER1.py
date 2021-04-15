@@ -77,6 +77,7 @@ while 1:
 
     print("Connection established...")
 
+    # todo:- Receiving the list 
     recvMsgFromPP = ppInstance.recv(2048)
 
     recvInfo = give_list(recvMsgFromPP)
@@ -88,6 +89,8 @@ while 1:
     print(cardNumber)
     print(CIF_number[str(cardNumber)])
 
+    # Todo :- From cif number pick account number
+    #  
     OTP = otp_gen()
 
     receivedOtp=ppInstance.recv(2048)
@@ -98,6 +101,7 @@ while 1:
 
     if recvotp == str(OTP):
         ppInstance.send("True".encode())
+        
     else:
         ppInstance.send("False".encode())
 
