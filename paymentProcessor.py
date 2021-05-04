@@ -34,6 +34,14 @@ TPSipaddress = '169.254.142.108'
 
 payProInstance = socket(AF_INET, SOCK_STREAM)
 TPSsocket = socket(AF_INET,SOCK_STREAM)
+try:
+	TPSsocket.connect((TPSipaddress, TPSportnumber))
+	print("Connection accepted with TPS...:)")
+except:
+	print("Connection not accepted with TPS!!!")
+
+
+
 # TPSsocket.connect((TPSipaddress, TPSportnumber))
 
 
@@ -82,7 +90,7 @@ while 1:
 		print("packet formed :"+ packet)
 		# TPSsocket.connect((TPSipaddress, TPSportnumber))
 		try:
-			TPSsocket.connect((TPSipaddress, TPSportnumber))
+			# TPSsocket.connect((TPSipaddress, TPSportnumber))
 			TPSsocket.send(packet.encode())
 			print("Message (packet) sent to TPS")
 		except:
@@ -117,7 +125,7 @@ while 1:
 	print("Received feedback about otp")
 	otpinstance.send(recv)
 
-	TPSsocket.close()
+	# TPSsocket.close()
 	otpinstance.close()
 
     

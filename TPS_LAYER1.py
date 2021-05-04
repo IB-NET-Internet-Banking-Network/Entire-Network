@@ -165,20 +165,18 @@ Hence if you can add all your socket connection and processes into this while lo
 
 """
 
+try:
+    ppInstance, ppAddress = TpsServer.accept()
+    print("Connection accepted with pp...")
+except:
+    print("Connection not accepted!!!")
+
 
 
 
 while 1:
 
     print("start")
-    try:
-        ppInstance, ppAddress = TpsServer.accept()
-        print("Entered Try")
-    except:
-        print("problem in connection with pp")
-
-    print("Connection established...")
-
 
     # todo:- Receiving the list 
 
@@ -250,7 +248,7 @@ while 1:
         ppInstance.send("False".encode())
 
 
-    ppInstance.close()
+    # ppInstance.close()
     print('Full while loop completed')
 
     # ppInstance.send("1".encode())
