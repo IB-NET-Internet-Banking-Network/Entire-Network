@@ -331,7 +331,7 @@ def paid():
         print(check)
         if check == "True":
             print("Correct OTP, your are paying...")
-            return f"""<h1>Payment is in progress...wait for a while : )</h1>"""
+            return (render_template('finalResult.html'))
         else:
             print("Worng OTP, payment failed !!!")
             return f"""<h1>WRONG OTP... payment failed !!! :( </h1>"""
