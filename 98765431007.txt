@@ -1,0 +1,16 @@
+
+--------------------
+Account Number: '90000000000008'
+Amount : 100.0
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 14:18:55.512440
+Party: 'GANESH T S'('00000000006')
+--------------------
+
+--------------------
+Account Number: '90000000000008'
+Amount : 100.0
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 14:31:48.189642
+Party: 'MANAS KUMAR MISHRA'('00000000011')
+--------------------

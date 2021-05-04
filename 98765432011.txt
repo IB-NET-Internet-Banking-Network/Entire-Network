@@ -13,3 +13,27 @@
 ==> Address                 : Khajuri khas, New Delhi
 ------------------------------------------------------------------
 ------------------------------------------------------------------
+
+--------------------
+Account Number: '00000000011'
+Amount : 550.0
+Type of Transaction: debit
+Time of Transaction: 2021-05-04 13:29:30.618002
+Party: 'Zomato'('90000000000003')
+--------------------
+
+--------------------
+Account Number: '00000000011'
+Amount : 110.55000000000001
+Type of Transaction: debit
+Time of Transaction: 2021-05-04 13:42:10.367566
+Party: 'UberCabs'('90000000000009')
+--------------------
+
+--------------------
+Account Number: '00000000011'
+Amount : 110.00000000000001
+Type of Transaction: debit
+Time of Transaction: 2021-05-04 14:31:48.092156
+Party: 'OlaCabs'('90000000000008')
+--------------------

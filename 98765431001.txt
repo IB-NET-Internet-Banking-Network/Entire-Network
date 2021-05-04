@@ -1,0 +1,8 @@
+
+--------------------
+Account Number: '90000000000002'
+Amount : 100.0
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 14:05:53.103687
+Party: 'GANESH T S'('00000000006')
+--------------------
