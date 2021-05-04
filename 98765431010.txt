@@ -1,0 +1,48 @@
+
+--------------------
+Account Number: 90000000000011
+Amount : 50.0
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 13:29:30.740632
+Party: 'MANAS KUMAR MISHRA'('00000000011')
+--------------------
+
+--------------------
+Account Number: 90000000000011
+Amount : 10.050000000000011
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 13:42:10.554830
+Party: 'MANAS KUMAR MISHRA'('00000000011')
+--------------------
+
+--------------------
+Account Number: 90000000000011
+Amount : 10.001000000000005
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 14:01:37.719602
+Party: 'GANESH T S'('00000000006')
+--------------------
+
+--------------------
+Account Number: 90000000000011
+Amount : 10.000000000000014
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 14:05:53.135707
+Party: 'GANESH T S'('00000000006')
+--------------------
+
+--------------------
+Account Number: 90000000000011
+Amount : 10.000000000000014
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 14:18:55.545450
+Party: 'GANESH T S'('00000000006')
+--------------------
+
+--------------------
+Account Number: 90000000000011
+Amount : 10.000000000000014
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 14:31:48.266810
+Party: 'MANAS KUMAR MISHRA'('00000000011')
+--------------------

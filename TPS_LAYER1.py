@@ -1,145 +1,261 @@
 """
+
 Author :- Ganesh T S, Manas Kumar mishra
+
 Task :- Design for Transaction processing system (TPS). That perform the OTP part.
+
 Begin DATE :- 05- MARCH- 2021
+
 """
+
 
 from socket import *
 import datetime
+
 from random import randint
 
+import pymysql
 
-# CIF Customer Information file
-# It maaps between the Card info to the Bank information
-global CIF_number
-CIF_number={
-    "1001 0110 2002 0011":"98765432011",
-    "1001 0110 2002 0026":"98765432026",
-    "1001 0110 2002 0006":"98765432006"
-}
+conn = pymysql.connect( host='localhost', user='root',  password = "", db='test',)
 
-# Mapping between the CIF number to the Account detalis
-global accountDetails
-accountDetails={
-    "98765432011":["00000000011", "RBIS0PFMS01"],
-    "98765432026":["00000000026", "RBIS0PFMS01"],
-    "98765432006":["00000000006", "RBIS0PFMS01"],
-}
 
 # function for converting the binary message into list
+
 # Input is receved message from payment gateway
+
 # output is full message in list
+
 def give_list(recvMessage):
+
 	recvMessage = recvMessage.decode()
+
 
 	recvMessage2 = eval(recvMessage)
 
+
 	return recvMessage2
 
+
 # Funtion for generating the Otp
+
 # Input is nothing
+
 # Output is Generated Otp
 
+
 def otp_gen():
+
     otpgenerated = randint(100001, 999999)
 
+
     print("Generated OTP is :- ", otpgenerated)
+
 
     return otpgenerated
 
 
-TpsPortNumber = 9988
+# Funtion for debiting and crediting
+
+# Inputs are payee and payer account numbers and amount
+
+# No outputs
+
+def debcred(account1,account2,amount):
+
+        amount1=1.1*amount
+
+        a=datetime.datetime.now()
+
+        serverName = '169.254.142.108'
+
+        serverPort = 9048
+
+        clientSocket = socket(AF_INET, SOCK_STREAM)
+
+        # Debit operation
+
+        sentence = account1 + ' debit ' + str(amount1)+' ' + account2
+
+        clientSocket.connect((serverName,serverPort))
+
+        clientSocket.send(sentence.encode())
+
+        b=datetime.datetime.now()
+
+        clientSocket.recv(2048)
+
+        print(" Elapsed time : ")
+
+        print(b-a)
+
+        clientSocket.close()
+
+        # client side
+
+        serverPort = 12000
+
+        clientSocket = socket(AF_INET, SOCK_STREAM)
+
+
+# Credit operation
+
+        sentence = account2 + ' credit ' + str(amount)+' ' + account1
+
+        clientSocket.connect((serverName,serverPort))
+
+        clientSocket.send(sentence.encode())
+
+        clientSocket.recv(2048)
+
+        b=datetime.datetime.now()
+
+        print(" Elapsed time : ")
+
+        print(b-a)
+
+        clientSocket.close()
+        
+
+        clientSocket2 = socket(AF_INET, SOCK_STREAM)
+
+#Payment charges
+        
+
+        sentence = '90000000000011' + ' credit ' + str(amount1-amount)+' ' + account1
+
+        clientSocket2.connect((serverName,serverPort))
+
+        clientSocket2.send(sentence.encode())
+
+        clientSocket2.recv(2048)
+
+        b=datetime.datetime.now()
+
+        print(" Elapsed time : ")
+
+        print(b-a)
+
+        clientSocket2.close()
+
+        return 0
+
+
+
+
 
 TpsServer = socket(AF_INET, SOCK_STREAM)
 
-TpsServer.bind(('', TpsPortNumber))
+
+TpsServer.bind(('', 9988))
 TpsServer.listen(1)
 
-serverName = '169.254.142.108'
-serverPort = 9048
-clientSocket = socket(AF_INET, SOCK_STREAM)
 
 print("TPS is ready to connected with pp ...")
 
 
+
 a=datetime.datetime.now()
 
+
 """
+
 NOTE:- for ganesh, Amount is coming in the while loop , 3rd element of the recvInfo list is the amount.
+
 Hence if you can add all your socket connection and processes into this while loop then we won't face any issue.
+
 """
-amount=1000
-amount1=amount*1.1
+
+
 
 
 while 1:
-    ppInstance, ppAddress = TpsServer.accept()
+
+    print("start")
+    try:
+        ppInstance, ppAddress = TpsServer.accept()
+        print("Entered Try")
+    except:
+        print("problem in connection with pp")
 
     print("Connection established...")
 
+
     # todo:- Receiving the list 
+
     recvMsgFromPP = ppInstance.recv(2048)
+
 
     recvInfo = give_list(recvMsgFromPP)
 
+
     print("Received message...")
+
     print(recvInfo)
 
-    cardNumber = recvInfo[0]
-    print(cardNumber)
-    print(CIF_number[str(cardNumber)])
 
-    # Todo :- From cif number pick account number
-    #  
+    cardNumber = recvInfo[0]
+
+    print(cardNumber)
+
+        #From card number pick account number
+
+    cur = conn.cursor()
+
+    cur.execute("select AccountNumber from cardaccount where CardNumber = %s",cardNumber)
+
+    AccountNumber= str(cur.fetchall()).replace('(','').replace(')','').replace(',','')
+    
+
+    amount=float(recvInfo[2])
+    
+
+    merchantName = recvInfo[3]
+
+    print("Merchant Name : ", merchantName)
+    
+
+    # Todo :- From merchant name pick account number
+
+    cur.execute("select AccountNumber from bank2 where Name = %s",merchantName)
+
+    AccountNumber2= str(cur.fetchall()).replace('(','').replace(')','').replace(',','')
+
+    print(AccountNumber2)
+
     OTP = otp_gen()
 
+
     receivedOtp=ppInstance.recv(2048)
+    
 
     recvotp = receivedOtp.decode()
 
+
     print("RECEIVED OTP from the user :- ",recvotp)
 
+
     if recvotp == str(OTP):
+
         ppInstance.send("True".encode())
-        
+
+        zero = debcred(AccountNumber,AccountNumber2,amount)
+
+        if zero ==0:
+            print("Function completed")
+
+        # Todo:- Banking part.
+
     else:
+
         ppInstance.send("False".encode())
 
+
     ppInstance.close()
+    print('Full while loop completed')
+
     # ppInstance.send("1".encode())
 
 
+
 # Todo:- ADD all below work inside the while loop such that it can communicate properly with bank1, and bank2. 
-
-# Debit operation
-sentence = '81309831 debit '+str(amount1)
-
-clientSocket.connect((serverName,serverPort))
-clientSocket.send(sentence.encode())
-
-b=datetime.datetime.now()
-
-clientSocket.recv(2048)
-print(" Elapsed time : ")
-
-print(b-a)
-
-clientSocket.close()
-
-# client side
-serverPort = 12000
-clientSocket = socket(AF_INET, SOCK_STREAM)
-
-# Credit operation
-sentence = '81309832 credit '+str(amount)
-
-clientSocket.connect((serverName,serverPort))
-clientSocket.send(sentence.encode())
-clientSocket.recv(2048)
-
-b=datetime.datetime.now()
-print(" Elapsed time : ")
-print(b-a)
-
-clientSocket.close()
 

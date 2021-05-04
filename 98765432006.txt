@@ -13,3 +13,27 @@
 ==> Address                 : 21 Ashoka Road, New Delhi
 ------------------------------------------------------------------
 ------------------------------------------------------------------
+
+--------------------
+Account Number: '00000000006'
+Amount : 110.01100000000001
+Type of Transaction: debit
+Time of Transaction: 2021-05-04 14:01:37.552059
+Party: 'MKMISHRA'('90000000000007')
+--------------------
+
+--------------------
+Account Number: '00000000006'
+Amount : 110.00000000000001
+Type of Transaction: debit
+Time of Transaction: 2021-05-04 14:05:52.986634
+Party: 'Amazon'('90000000000002')
+--------------------
+
+--------------------
+Account Number: '00000000006'
+Amount : 110.00000000000001
+Type of Transaction: debit
+Time of Transaction: 2021-05-04 14:18:55.467431
+Party: 'OlaCabs'('90000000000008')
+--------------------

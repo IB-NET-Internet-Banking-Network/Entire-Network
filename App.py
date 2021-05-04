@@ -11,7 +11,7 @@ from datetime import datetime
 
 # Estiblish the connection to the payment processor
 payProPortNumber = 9999         #payment processor port number
-payproAddress = '192.168.43.99' #payment processor IP address
+payproAddress = '169.254.142.108' #payment processor IP address
  #Define the instance of the socket
 
 # print("Not able to connect the payment processor!!!")
@@ -25,7 +25,7 @@ def sendData(fullData, paymentAmount):
 
     
     payProPortNumber = 9999       #payment processor port number
-    payproAddress = '192.168.43.99' #payment processor IP address
+    payproAddress = '169.254.142.108' #payment processor IP address
 
     paygateSocket = socket(AF_INET, SOCK_STREAM) #Define the instance of the socket
 
@@ -62,7 +62,7 @@ def sendData(fullData, paymentAmount):
 
 def send_otp(UserOTP):
     payProPortNumber = 9999       #payment processor port number
-    payproAddress = '192.168.43.99' #payment processor IP address
+    payproAddress = '169.254.142.108' #payment processor IP address
 
     otpsocket = socket(AF_INET, SOCK_STREAM)
 
@@ -98,16 +98,16 @@ ListOfUsers = {
 
 global merchentList
 merchentList = {
-    "0":"Income tax authority",
-    "1":"AMAZON",
+    "0":"Income Tax Authority",
+    "1":"Amazon",
     "2":"Zomato",
-    "3":"Intershala",
-    "4":"Make My Trip",
+    "3":"Internshala",
+    "4":"MakeMyTrip",
     "5":"Practo",
-    "6":"mkmishra2000",
-    "7":"Ola cabs",
-    "8":"Uber cabs",
-    "9":"IRTC train ticket"
+    "6":"MKMISHRA",
+    "7":"OlaCabs",
+    "8":"UberCabs",
+    "9":"IRCTC"
 }
 
 
@@ -223,12 +223,11 @@ def hello():
         # For get method we will stay on the same page
         return (render_template('loginPage.html'))
 
-
+merchent = ''
 @app.route("/Debitcard/<usr>", methods = ["POST", "GET"])
 def DebitCardPayment(usr):
     message = "" # user information
-    merchentID = randint(0,9)
-    merchent = merchentList[str(merchentID)]
+    global merchent
 
     if request.method == "POST":
 
@@ -260,12 +259,17 @@ def DebitCardPayment(usr):
             else:
                 return f"""<h1>ERROR, Wrong data input</h1>"""
     else:
+        merchentID = randint(0,9)
+        merchent = merchentList[str(merchentID)]
+
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
 
 
+merchent = ''
 @app.route("/Creditcard/<usr>", methods = ["POST", "GET"])
 def CreditCardPayment(usr):
     message = "" # User Information
+    global merchent
     merchentID = randint(0,9)
     merchent = merchentList[str(merchentID)]
     print("Login user :",str(usr))
@@ -301,6 +305,10 @@ def CreditCardPayment(usr):
                 return f"""<h1>ERROR, Wrong data input</h1>"""
             
     else:
+
+        merchentID = randint(0,9)
+        merchent = merchentList[str(merchentID)]
+        
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
 
 
@@ -331,7 +339,8 @@ def paid():
     else:
         return render_template('otp.html')
 
-  
+
+
 if __name__ == "__main__":
     app.run(port= 1000, debug=True)
 

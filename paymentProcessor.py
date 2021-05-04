@@ -1,7 +1,7 @@
 """
 Author :- Manas Kumar Mishra
 Task :- Payment process (client for card company and server for payment gateway)
-Begin date :- 21 - March - 2021 
+Begin date :- 21-March-2021 
 """
 
 from socket import*
@@ -30,10 +30,12 @@ def give_list(recvMessage):
 payProPortNumber = 9999
 
 TPSportnumber = 9988
-TPSipaddress = '192.168.43.99'
+TPSipaddress = '169.254.142.108'
 
 payProInstance = socket(AF_INET, SOCK_STREAM)
 TPSsocket = socket(AF_INET,SOCK_STREAM)
+# TPSsocket.connect((TPSipaddress, TPSportnumber))
+
 
 payProInstance.bind(('',payProPortNumber))
 payProInstance.listen(1)
@@ -43,7 +45,7 @@ print("Payment processor is listening...")
 while 1:
 	
 	paygateInstance, paygetAddress = payProInstance.accept()
-	TPSsocket.connect((TPSipaddress, TPSportnumber))
+	
 	print("Connection excepted...:)")
 	
 	recvMessage = paygateInstance.recv(4096)
@@ -76,8 +78,15 @@ while 1:
 		packet.append(recvAmt[1])
 		packet.append(recvAmt[2])
 
-		packet = str(packet)
-		TPSsocket.send(packet.encode())
+		packet = str(packet)	
+		print("packet formed :"+ packet)
+		# TPSsocket.connect((TPSipaddress, TPSportnumber))
+		try:
+			TPSsocket.connect((TPSipaddress, TPSportnumber))
+			TPSsocket.send(packet.encode())
+			print("Message (packet) sent to TPS")
+		except:
+			print("Not sending data to TPS")
 
 		
 		print("Amount requested :", recvAmt[0])
@@ -89,6 +98,8 @@ while 1:
 		print("Wrong detalis")
 
 
+	print("A")
+	#PP CONNECTED TO APP
 	otpinstance, otpaddress = payProInstance.accept()
 	
 	print("Ready to listen OTP...")
@@ -101,6 +112,8 @@ while 1:
 	print("Otp send to the TPS")
 	recv = TPSsocket.recv(2048)
 
+	print(recv.decode())
+	
 	print("Received feedback about otp")
 	otpinstance.send(recv)
 
