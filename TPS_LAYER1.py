@@ -89,6 +89,9 @@ while 1:
     print(cardNumber)
     print(CIF_number[str(cardNumber)])
 
+    merchentName = recvInfo[3]
+    print("Merchant Name : ", merchentName)
+    
     # Todo :- From card number pick account number
     #  
     OTP = otp_gen()
