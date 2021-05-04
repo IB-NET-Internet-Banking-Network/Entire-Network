@@ -40,7 +40,7 @@ while 1:
         conn.commit()
         conn.close()
         connectionSocket.send("Transaction over".encode())
-        b=datetime.datetime.now();
+        b=datetime.datetime.now()
         print(" Elapsed time : ")
         print(b-a)
         connectionSocket.close()

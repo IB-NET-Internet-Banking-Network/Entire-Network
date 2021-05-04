@@ -89,7 +89,7 @@ while 1:
     print(cardNumber)
     print(CIF_number[str(cardNumber)])
 
-    # Todo :- From cif number pick account number
+    # Todo :- From card number pick account number
     #  
     OTP = otp_gen()
 
@@ -101,7 +101,7 @@ while 1:
 
     if recvotp == str(OTP):
         ppInstance.send("True".encode())
-        
+        # Todo:- Banking part.
     else:
         ppInstance.send("False".encode())
 

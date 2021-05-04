@@ -223,12 +223,11 @@ def hello():
         # For get method we will stay on the same page
         return (render_template('loginPage.html'))
 
-
+merchent = ''
 @app.route("/Debitcard/<usr>", methods = ["POST", "GET"])
 def DebitCardPayment(usr):
     message = "" # user information
-    merchentID = randint(0,9)
-    merchent = merchentList[str(merchentID)]
+    global merchent
 
     if request.method == "POST":
 
@@ -260,12 +259,17 @@ def DebitCardPayment(usr):
             else:
                 return f"""<h1>ERROR, Wrong data input</h1>"""
     else:
+        merchentID = randint(0,9)
+        merchent = merchentList[str(merchentID)]
+
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
 
 
+merchent = ''
 @app.route("/Creditcard/<usr>", methods = ["POST", "GET"])
 def CreditCardPayment(usr):
     message = "" # User Information
+    global merchent
     merchentID = randint(0,9)
     merchent = merchentList[str(merchentID)]
     print("Login user :",str(usr))
@@ -301,6 +305,10 @@ def CreditCardPayment(usr):
                 return f"""<h1>ERROR, Wrong data input</h1>"""
             
     else:
+
+        merchentID = randint(0,9)
+        merchent = merchentList[str(merchentID)]
+        
         return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
 
 
