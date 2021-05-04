@@ -1,0 +1,8 @@
+
+--------------------
+Account Number: '90000000000003'
+Amount : 500.0
+Type of Transaction: credit
+Time of Transaction: 2021-05-04 13:29:30.679619
+Party: 'MANAS KUMAR MISHRA'('00000000011')
+--------------------

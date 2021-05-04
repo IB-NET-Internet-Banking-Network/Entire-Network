@@ -1,8 +1,7 @@
 import pymysql 
 from socket import *
 import datetime
-
-a=datetime.datetime.now()
+a=datetime.datetime.now();
 serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.bind(('', serverPort))
@@ -14,34 +13,56 @@ while 1:
         sentence = connectionSocket.recv(2048)
         print("Sentence Received")
         sentence=sentence.decode().split()
+        print(sentence)
         account=sentence[0]
         tt=sentence[1]
         print(tt)
         amount=float(sentence[2])
+        account2=sentence[3]
         conn = pymysql.connect( host='localhost', user='root',  password = "", db='test',) 
         cur = conn.cursor()
-        cur.execute("select balance from bank2 where AccountNumber = %s",account) 
+        cur.execute("select balance from bank2 where AccountNumber = " + account) 
         balance = str(cur.fetchall()).replace('(','').replace(')','').replace(',','')
         balance=float(balance)
         if(tt=='debit'):
             if(balance>amount):
                     balance=balance - amount
                     print(balance)
+                    
             else:
                     print(" Low Balance")
+                    conn.commit()
+                    conn.close()
         elif(tt=='credit'):
             balance=balance + amount
             print(balance)
         else:
             print("illegal operation")
+            conn.commit()
+            conn.close()
         update="update bank2 set balance = "+str(balance)+" where AccountNumber = "+account
         cur.execute(update)
         update="update bank2 set lastt = now() where AccountNumber = "+account
         cur.execute(update)
+        connectionSocket.send("Transaction over".encode())
+        b=datetime.datetime.now();
+        cur.execute("select CIF from bank2 where AccountNumber = " + account) 
+        CIF = str(cur.fetchall()).replace('(','').replace(')','').replace(',','').replace("'","")
+        cur.execute("select Name from bank where AccountNumber = " + account2) 
+        Party = str(cur.fetchall()).replace('(','').replace(')','').replace(',','')
+        name=CIF + ".txt"
+        f = open(CIF + ".txt", "a")
+        f.write("\n--------------------\n")
+        f.write("Account Number: "+account+"\n")
+        f.write("Amount : "+str(amount)+"\n")
+        f.write("Type of Transaction: "+tt+"\n")
+        f.write("Time of Transaction: "+str(b)+"\n")
+        f.write("Party: "+Party+"("+account2+")"+"\n")
+        f.write("--------------------\n")
+        f.close()
         conn.commit()
         conn.close()
-        connectionSocket.send("Transaction over".encode())
-        b=datetime.datetime.now()
+        
         print(" Elapsed time : ")
         print(b-a)
         connectionSocket.close()
