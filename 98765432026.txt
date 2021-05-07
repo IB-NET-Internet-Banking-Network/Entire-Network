@@ -6,8 +6,8 @@
 ==> Account Type            : Saving type
 ==> Customer Name           : KARTHIKA RAJESH
 ==> D.O.B                   : 13/JUN/2000
-==> Registered Phone Number : 9945726031
-==> Email id                : edm18b026@iiitdm.ac.in
+==> Registered Phone Number : 9xxxxxxx31
+==> Email id                : ----@----
 ==> Marital Status          : Single
 ==> Current KYC Status      : Student in IIITDM kancheepuram
 ==> Address                 : Bengaluru
