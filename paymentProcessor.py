@@ -71,7 +71,7 @@ while 1:
 
 		paygateInstance.close()
 
-		# Todo:- TPS PART. 
+		# TPS PART. 
 		# Here , we are making a packet for communicating with TPS layer
 		packet = []
 		# Card number 
@@ -80,7 +80,7 @@ while 1:
 		# Card holder name 
 		packet.append(recvMsg[4])
 
-		# Amount and merchent 
+		# Amount and merchant 
 		packet.append(recvAmt[0])
 		packet.append(recvAmt[1])
 		packet.append(recvAmt[2])

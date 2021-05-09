@@ -177,14 +177,11 @@ while 1:
     recvInfo = give_list(recvMsgFromPP)
 
 
-    print("Received message...")
+    print("Received message")
 
-    print(recvInfo)
 
 
     cardNumber = recvInfo[0]
-
-    print(cardNumber)
 
         #From card number pick account number
 
@@ -207,8 +204,6 @@ while 1:
     cur.execute("select AccountNumber from bank2 where Name = %s",merchantName)
 
     AccountNumber2= str(cur.fetchall()).replace('(','').replace(')','').replace(',','')
-
-    print(AccountNumber2)
 
     OTP = otp_gen()
 
