@@ -1,13 +1,13 @@
 ------------------------------------------------------------------
 ------------------Customer Information File-----------------------
-==> Account Number          : 90000000000002
+==> Account Number          : 90000000000005
 ==> IFSC code               : RBIS0PFMS02
 ==> Branch code             : PFMS02
 ==> Account Type            : Current Type
-==> Customer Name           : Amazon
-==> D.O.I                   : 16/APRIL/2010
+==> Customer Name           : MakeMyTrip
+==> D.O.I                   : 13/APRIL/2000
 ==> Email id                : ----@----
-==> GST Number              : 29AAICA3918J1ZE
-==> Registered Address      : 8TH FLOOR, BRIGADE GATEWAY, 26/1, DR. RAJKUMAR ROAD, BANGLORE 560055
+==> GST Number              : 29AADCM5146R1ZR
+==> Registered Address      : B-36, 1st Floor, Pusa Road, Delhi 110005
 ------------------------------------------------------------------
 -------------------------------------------------------------------

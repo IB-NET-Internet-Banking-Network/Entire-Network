@@ -1,8 +1,13 @@
-
---------------------
-Account Number: '90000000000003'
-Amount : 500.0
-Type of Transaction: credit
-Time of Transaction: 2021-05-04 13:29:30.679619
-Party: 'MANAS KUMAR MISHRA'('00000000011')
---------------------
+------------------------------------------------------------------
+------------------Customer Information File-----------------------
+==> Account Number          : 90000000000003
+==> IFSC code               : RBIS0PFMS02
+==> Branch code             : PFMS02
+==> Account Type            : Current Type
+==> Customer Name           : Zomato
+==> D.O.I                   : 18/JANUARY/2010
+==> Email id                : ----@----
+==> GST Number              : 06AAACZ8867B1Z4
+==> Registered Address      : GROUND FLOOR 12A, 94, MEGHDOOT, NEHRU PLACE, NEW DELHI 110019
+------------------------------------------------------------------
+-------------------------------------------------------------------

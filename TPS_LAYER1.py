@@ -62,7 +62,7 @@ def otp_gen():
 
 def debcred(account1,account2,amount):
 
-        amount1=1.1*amount
+        amount1=1.001*amount
 
         a=datetime.datetime.now()
 
@@ -157,14 +157,6 @@ print("TPS is ready to connected with pp ...")
 a=datetime.datetime.now()
 
 
-"""
-
-NOTE:- for ganesh, Amount is coming in the while loop , 3rd element of the recvInfo list is the amount.
-
-Hence if you can add all your socket connection and processes into this while loop then we won't face any issue.
-
-"""
-
 try:
     ppInstance, ppAddress = TpsServer.accept()
     print("Connection accepted with pp...")
@@ -176,9 +168,8 @@ except:
 
 while 1:
 
-    print("start")
 
-    # todo:- Receiving the list 
+    # Receiving the list 
 
     recvMsgFromPP = ppInstance.recv(2048)
 
@@ -212,7 +203,6 @@ while 1:
     print("Merchant Name : ", merchantName)
     
 
-    # Todo :- From merchant name pick account number
 
     cur.execute("select AccountNumber from bank2 where Name = %s",merchantName)
 
@@ -238,22 +228,13 @@ while 1:
 
         zero = debcred(AccountNumber,AccountNumber2,amount)
 
-        if zero ==0:
-            print("Function completed")
-
-        # Todo:- Banking part.
-
     else:
 
         ppInstance.send("False".encode())
 
 
     # ppInstance.close()
-    print('Full while loop completed')
 
     # ppInstance.send("1".encode())
-
-
-
-# Todo:- ADD all below work inside the while loop such that it can communicate properly with bank1, and bank2. 
+ 
 

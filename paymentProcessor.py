@@ -54,13 +54,12 @@ while 1:
 	
 	paygateInstance, paygetAddress = payProInstance.accept()
 	
-	print("Connection excepted...:)")
+	print("Connection accepted...:)")
 	
 	recvMessage = paygateInstance.recv(4096)
 	print("Something RECEIVED...:)")
 
 	recvMsg = give_list(recvMessage)
-	print(recvMsg)
 	
 	if(recvMsg==list(dataofUsers['MANAS']) or recvMsg==list(dataofUsers['MISS KR']) or recvMsg == list(dataofUsers['GANESH'])):
 		paygateInstance.send("True".encode())
@@ -87,7 +86,7 @@ while 1:
 		packet.append(recvAmt[2])
 
 		packet = str(packet)	
-		print("packet formed :"+ packet)
+
 		# TPSsocket.connect((TPSipaddress, TPSportnumber))
 		try:
 			# TPSsocket.connect((TPSipaddress, TPSportnumber))
@@ -106,7 +105,7 @@ while 1:
 		print("Wrong detalis")
 
 
-	print("A")
+	
 	#PP CONNECTED TO APP
 	otpinstance, otpaddress = payProInstance.accept()
 	
@@ -117,12 +116,12 @@ while 1:
 	# Todo :- Encryption and decryption
 	TPSsocket.send(recvOTP)
 
-	print("Otp send to the TPS")
+	print("OTP send to the TPS")
 	recv = TPSsocket.recv(2048)
 
 	print(recv.decode())
 	
-	print("Received feedback about otp")
+	print("Received feedback about OTP")
 	otpinstance.send(recv)
 
 	# TPSsocket.close()

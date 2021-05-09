@@ -1,13 +1,13 @@
 ------------------------------------------------------------------
 ------------------Customer Information File-----------------------
-==> Account Number          : 90000000000002
+==> Account Number          : 90000000000001
 ==> IFSC code               : RBIS0PFMS02
 ==> Branch code             : PFMS02
 ==> Account Type            : Current Type
-==> Customer Name           : Amazon
-==> D.O.I                   : 16/APRIL/2010
+==> Customer Name           : Income Tax Authority
+==> D.O.I                   : --------
 ==> Email id                : ----@----
-==> GST Number              : 29AAICA3918J1ZE
-==> Registered Address      : 8TH FLOOR, BRIGADE GATEWAY, 26/1, DR. RAJKUMAR ROAD, BANGLORE 560055
+==> GST Number              : ---------
+==> Registered Address      : 1st Floor, Prestige Alpha No 48/1 48/2,Beratenaagrahara Begur, Hosur Rd, Uttarahalli Hobli, Bengaluru,560100
 ------------------------------------------------------------------
 -------------------------------------------------------------------

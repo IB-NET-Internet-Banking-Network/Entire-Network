@@ -13,9 +13,9 @@ while 1:
         sentence = connectionSocket.recv(4096)
         print("Sentence Received")
         sentence=sentence.decode().split()
-        print(sentence)
         account=sentence[0]
         tt=sentence[1]
+        print("Transaction Type:")
         print(tt)
         amount=float(sentence[2])
         account2=sentence[3]
@@ -27,6 +27,7 @@ while 1:
         if(tt=='debit'):
             if(balance>amount):
                     balance=balance - amount
+                    print("Updated Balance :")
                     print(balance)
             else:
                     print(" Low Balance")
@@ -35,6 +36,7 @@ while 1:
                     break
         elif(tt=='credit'):
             balance=balance + amount
+            print("Updated Balance :")
             print(balance)
         else:
             print("illegal operation")

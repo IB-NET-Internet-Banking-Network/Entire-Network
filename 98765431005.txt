@@ -1,20 +1,20 @@
 ------------------------------------------------------------------
 ------------------Customer Information File-----------------------
-==> Account Number          : 90000000000011
+==> Account Number          : 90000000000006
 ==> IFSC code               : RBIS0PFMS02
 ==> Branch code             : PFMS02
 ==> Account Type            : Current Type
-==> Customer Name           : IBNET
-==> D.O.I                   : 06/MAY/2000
+==> Customer Name           : Practo
+==> D.O.I                   : 08/MAY/2008
 ==> Email id                : ----@----
-==> GST Number              : 18ABBDU9603R1MZ
-==> Registered Address      : Room No. 920, Aswatha Hostel, IIITDM Kancheepuram, Chennai-600127
+==> GST Number              : 33AACCN8042Q3Z1
+==> Registered Address      : Wework Salarpuria Symbiosis, Arekere Village, Begur Hobli, Bannerghatta Road, Bangalore560076
 ------------------------------------------------------------------
-------------------------------------------------------------------
+-------------------------------------------------------------------
 --------------------
-Account Number: 90000000000011
-Amount : 1.2339999999999236
+Account Number: '90000000000006'
+Amount : 1234.0
 Type of Transaction: credit
-Time of Transaction: 2021-05-09 16:54:58.566108
+Time of Transaction: 2021-05-09 16:54:58.224755
 Party: 'MANAS KUMAR MISHRA'('00000000011')
 --------------------

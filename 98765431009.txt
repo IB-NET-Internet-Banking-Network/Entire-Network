@@ -1,13 +1,13 @@
 ------------------------------------------------------------------
 ------------------Customer Information File-----------------------
-==> Account Number          : 90000000000002
+==> Account Number          : 90000000000010
 ==> IFSC code               : RBIS0PFMS02
 ==> Branch code             : PFMS02
 ==> Account Type            : Current Type
-==> Customer Name           : Amazon
-==> D.O.I                   : 16/APRIL/2010
+==> Customer Name           : IRCTC
+==> D.O.I                   : 27/SEPTEMBER/1999
 ==> Email id                : ----@----
-==> GST Number              : 29AAICA3918J1ZE
-==> Registered Address      : 8TH FLOOR, BRIGADE GATEWAY, 26/1, DR. RAJKUMAR ROAD, BANGLORE 560055
+==> GST Number              : 33AAACI7074F2ZQ
+==> Registered Address      : 16, Parliament Street, New Delhi 110001
 ------------------------------------------------------------------
--------------------------------------------------------------------
+------------------------------------------------------------------

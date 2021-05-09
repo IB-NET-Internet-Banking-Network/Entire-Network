@@ -1,8 +1,13 @@
-
---------------------
-Account Number: '90000000000007'
-Amount : 100.01
-Type of Transaction: credit
-Time of Transaction: 2021-05-04 14:01:37.670548
-Party: 'GANESH T S'('00000000006')
---------------------
+------------------------------------------------------------------
+------------------Customer Information File-----------------------
+==> Account Number          : 90000000000007
+==> IFSC code               : RBIS0PFMS02
+==> Branch code             : PFMS02
+==> Account Type            : Current Type
+==> Customer Name           : MKMISHRA
+==> D.O.I                   : 19/JULY/2018
+==> Email id                : ----@----
+==> GST Number              : 29AACKA3211H2VZ
+==> Registered Address      : Dept of ECE, IIITDM Kancheepuram, Chennai 600127
+------------------------------------------------------------------
+-------------------------------------------------------------------

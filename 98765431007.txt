@@ -1,16 +1,13 @@
-
---------------------
-Account Number: '90000000000008'
-Amount : 100.0
-Type of Transaction: credit
-Time of Transaction: 2021-05-04 14:18:55.512440
-Party: 'GANESH T S'('00000000006')
---------------------
-
---------------------
-Account Number: '90000000000008'
-Amount : 100.0
-Type of Transaction: credit
-Time of Transaction: 2021-05-04 14:31:48.189642
-Party: 'MANAS KUMAR MISHRA'('00000000011')
---------------------
+------------------------------------------------------------------
+------------------Customer Information File-----------------------
+==> Account Number          : 90000000000008
+==> IFSC code               : RBIS0PFMS02
+==> Branch code             : PFMS02
+==> Account Type            : Current Type
+==> Customer Name           : OlaCabs
+==> D.O.I                   : 03/DECEMBER/2010
+==> Email id                : ----@----
+==> GST Number              : 29AAKCA2311H2ZV
+==> Registered Address      : ANI Technologies Private Limited Regent Insignia, #414, 3rd Floor, 4th Block, 17th Main, 100 Feet Road Koramangala, Bengaluru, 560034
+------------------------------------------------------------------
+-------------------------------------------------------------------

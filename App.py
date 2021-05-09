@@ -96,8 +96,8 @@ ListOfUsers = {
 # global numberOfAtm
 # numberOfAtm =0
 
-global merchentList
-merchentList = {
+global merchantList
+merchantList = {
     "0":"Income Tax Authority",
     "1":"Amazon",
     "2":"Zomato",
@@ -130,7 +130,7 @@ Fuunction for printing the data on the backend screen
 input is the details of the user entered on the page
 Output is nothing but in between it is printing the information
 """
-def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderName, AmountForPaying, merchent, cardInfo):
+def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderName, AmountForPaying, merchant, cardInfo):
 
     now = datetime.now()
     print("Login user        : ", loginusesr)
@@ -139,7 +139,7 @@ def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderNam
     print("CVV number        : ", CVVNumber)
     print("Card Holder name  : ", CardHolderName)
     print("Amount requested  : ", AmountForPaying)
-    print("Paying to         : ", merchent)
+    print("Paying to         : ", merchant)
     print("Time of payment   : ", now)
     if cardInfo ==1:
         print("Method of payment :  Debit card")
@@ -156,7 +156,7 @@ def backEndInfo(loginusesr, UsercardNumber, ExpiryDate, CVVNumber, CardHolderNam
     messageinput4 = ("**CVV number           : "+ CVVNumber+"\n")
     messageinput5 = ("**Card holder name     : "+ CardHolderName+"\n")
     messageinput6 = ("**Amount Requested     : "+ AmountForPaying+"\n")
-    messageinput7 = ("**Paying to            : "+ merchent+"\n")
+    messageinput7 = ("**Paying to            : "+ merchant+"\n")
     messageinput8 = ("**Time of transaction  : "+ str(now)+"\n")
     messageinput9 = ("---------------------------------------------------------"+"\n")
     PutData.write(messageinput0)
@@ -223,11 +223,11 @@ def hello():
         # For get method we will stay on the same page
         return (render_template('loginPage.html'))
 
-merchent = ''
+merchant = ''
 @app.route("/Debitcard/<usr>", methods = ["POST", "GET"])
 def DebitCardPayment(usr):
     message = "" # user information
-    global merchent
+    global merchant
 
     if request.method == "POST":
 
@@ -242,14 +242,14 @@ def DebitCardPayment(usr):
         if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)=="" or str(CardHolderName)==""):
             print("No details")
             message = "Please fill, proper full  details !!!"
-            return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
+            return render_template('card1.html', post=str(usr), nxt=str(merchant),message=message)
         else:
-            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), str(merchent), 1)
+            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying), str(merchant), 1)
 
             fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
 
             now = datetime.now()
-            payingAmount = [str(AmountForPaying),str(merchent), str(now)]
+            payingAmount = [str(AmountForPaying),str(merchant), str(now)]
 
             confirmation = sendData(fullData, payingAmount)
             print("Received confirmation about user from payment Processor :", confirmation)
@@ -259,19 +259,19 @@ def DebitCardPayment(usr):
             else:
                 return f"""<h1>ERROR, Wrong data input</h1>"""
     else:
-        merchentID = randint(0,9)
-        merchent = merchentList[str(merchentID)]
+        merchantID = randint(0,9)
+        merchant = merchantList[str(merchantID)]
 
-        return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
+        return render_template('card1.html', post=str(usr), nxt=str(merchant),message=message)
 
 
-merchent = ''
+merchant = ''
 @app.route("/Creditcard/<usr>", methods = ["POST", "GET"])
 def CreditCardPayment(usr):
     message = "" # User Information
-    global merchent
-    merchentID = randint(0,9)
-    merchent = merchentList[str(merchentID)]
+    global merchant
+    merchantID = randint(0,9)
+    merchant = merchantList[str(merchantID)]
     print("Login user :",str(usr))
 
     if request.method == "POST":
@@ -287,13 +287,13 @@ def CreditCardPayment(usr):
         if(str(UsercardNumber)==""or str(ExpiryDate)=="" or str(CVVnumber)=="" or str(AmountForPaying)=="" or str(CardHolderName)==""):
             print("No details")
             message = "Please fill, proper full  details !!!" # Display message to the user
-            return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
+            return render_template('card1.html', post=str(usr), nxt=str(merchant),message=message)
         else:
-            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying),str(merchent), 0)
+            backEndInfo(str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName), str(AmountForPaying),str(merchant), 0)
             
             fullData = [str(usr), str(UsercardNumber), str(ExpiryDate), str(CVVnumber), str(CardHolderName)]
             now = datetime.now()
-            payingAmount = [str(AmountForPaying), str(merchent), str(now)]
+            payingAmount = [str(AmountForPaying), str(merchant), str(now)]
 
             confirmation = sendData(fullData, payingAmount)
 
@@ -306,10 +306,10 @@ def CreditCardPayment(usr):
             
     else:
 
-        merchentID = randint(0,9)
-        merchent = merchentList[str(merchentID)]
+        merchantID = randint(0,9)
+        merchant = merchantList[str(merchantID)]
         
-        return render_template('card1.html', post=str(usr), nxt=str(merchent),message=message)
+        return render_template('card1.html', post=str(usr), nxt=str(merchant),message=message)
 
 
 @app.route("/Error/<usr>", methods = ["POST", "GET"])
