@@ -1,6 +1,6 @@
 """
-
-Author :- Manas Kumar mishra
+Vishnu...thank you for electronics
+Author :- Manas Kumar mishra, Karthika rajesh
 Task :- Design a web app for payment gateway process
 Begin DATE :- 05- MARCH- 2021
 """
