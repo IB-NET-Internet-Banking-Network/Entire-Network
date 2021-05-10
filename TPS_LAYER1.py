@@ -11,10 +11,11 @@ Begin DATE :- 05- MARCH- 2021
 
 from socket import *
 import datetime
-
 from random import randint
-
 import pymysql
+from AES_Encrypt import*  #Python file name for encryption
+from AES_Decrypt import*  #Python file name for decryption
+
 
 conn = pymysql.connect( host='localhost', user='root',  password = "", db='test',)
 
@@ -62,7 +63,7 @@ def otp_gen():
 
 def debcred(account1,account2,amount):
 
-        amount1=1.001*amount
+        amount1=round(1.01*amount,2)
 
         a=datetime.datetime.now()
 
@@ -78,66 +79,84 @@ def debcred(account1,account2,amount):
 
         clientSocket.connect((serverName,serverPort))
 
-        clientSocket.send(sentence.encode())
+        shkey=clientSocket.recv(2048)	
+        encrypteddata=str(AES_encrypt(shkey,sentence))
+        clientSocket.send(encrypteddata.encode())
 
+        shky=share_key()
+        clientSocket.send(shky.encode())
+        edata = clientSocket.recv(4096)
+        edata = edata.decode()
+        edata = eval(edata)
+        edata = AES_Decrypt(edata[0],edata[1])
+        print(edata)
         b=datetime.datetime.now()
-
-        clientSocket.recv(2048)
-
         print(" Elapsed time : ")
 
         print(b-a)
 
         clientSocket.close()
+        if edata=="Transaction over Successfully":
 
-        # client side
+            # client side
 
-        serverPort = 12000
+            serverPort = 12000
 
-        clientSocket = socket(AF_INET, SOCK_STREAM)
+            clientSocket = socket(AF_INET, SOCK_STREAM)
 
 
-# Credit operation
+            # Credit operation
 
-        sentence = account2 + ' credit ' + str(amount)+' ' + account1
+            sentence = account2 + ' credit ' + str(amount)+' ' + account1
 
-        clientSocket.connect((serverName,serverPort))
+            clientSocket.connect((serverName,serverPort))
 
-        clientSocket.send(sentence.encode())
+            shkey=clientSocket.recv(2048)	
+            encrypteddata=str(AES_encrypt(shkey,sentence))
+            clientSocket.send(encrypteddata.encode())
 
-        clientSocket.recv(2048)
+            shky=share_key()
+            clientSocket.send(shky.encode())
+            edata1 = clientSocket.recv(4096)
+            edata1 = edata1.decode()
+            edata1 = eval(edata1)
+            edata1 = AES_Decrypt(edata1[0],edata1[1])
+            print(edata1)
+            b=datetime.datetime.now()
+            print(" Elapsed time : ")
+            print(b-a)
+            clientSocket.close()
+            if edata1=="Transaction over Successfully":
+                clientSocket2 = socket(AF_INET, SOCK_STREAM)
+                #Payment charges
+                sentence = '90000000000011' + ' credit ' + str(amount1-amount)+' ' + account1
+                clientSocket2.connect((serverName,serverPort))
+                shkey=clientSocket2.recv(2048)	
+                encrypteddata=str(AES_encrypt(shkey,sentence))
+                clientSocket2.send(encrypteddata.encode())
 
-        b=datetime.datetime.now()
+                shky=share_key()
+                clientSocket2.send(shky.encode())
+                edata2 = clientSocket2.recv(4096)
+                edata2 = edata2.decode()
+                edata2 = eval(edata2)
+                edata2 = AES_Decrypt(edata2[0],edata2[1])
+                print(edata2)
+                b=datetime.datetime.now()
 
-        print(" Elapsed time : ")
+                print(" Elapsed time : ")
 
-        print(b-a)
+                print(b-a)
 
-        clientSocket.close()
-        
-
-        clientSocket2 = socket(AF_INET, SOCK_STREAM)
-
-#Payment charges
-        
-
-        sentence = '90000000000011' + ' credit ' + str(amount1-amount)+' ' + account1
-
-        clientSocket2.connect((serverName,serverPort))
-
-        clientSocket2.send(sentence.encode())
-
-        clientSocket2.recv(2048)
-
-        b=datetime.datetime.now()
-
-        print(" Elapsed time : ")
-
-        print(b-a)
-
-        clientSocket2.close()
-
-        return 0
+                clientSocket2.close()
+                if edata2=="Transaction over Successfully":
+                    return 0
+                else:
+                    return 1
+            else:
+                return 1
+        else:
+            return 1
 
 
 
@@ -171,14 +190,20 @@ while 1:
 
     # Receiving the list 
 
+    shky=share_key()
+    ppInstance.send(shky.encode())
     recvMsgFromPP = ppInstance.recv(2048)
+    #recvInfo = give_list(recvMsgFromPP)
 
-
-    recvInfo = give_list(recvMsgFromPP)
+    recvMsgFromPP=recvMsgFromPP.decode()
+    recvMsgFromPP=eval(recvMsgFromPP)	
+    recvMsgFromPP = AES_Decrypt(recvMsgFromPP[0],recvMsgFromPP[1])	
+    recvInfo=recvMsgFromPP.split(",")
+    print('decrypt',recvInfo)
 
 
     print("Received message")
-
+    print(recvInfo)
 
 
     cardNumber = recvInfo[0]
@@ -189,9 +214,8 @@ while 1:
 
     cur.execute("select AccountNumber from cardaccount where CardNumber = %s",cardNumber)
 
-    AccountNumber= str(cur.fetchall()).replace('(','').replace(')','').replace(',','')
+    AccountNumber= str(cur.fetchall()).replace('(','').replace(')','').replace(',','')    
     
-
     amount=float(recvInfo[2])
     
 
@@ -204,28 +228,47 @@ while 1:
     cur.execute("select AccountNumber from bank2 where Name = %s",merchantName)
 
     AccountNumber2= str(cur.fetchall()).replace('(','').replace(')','').replace(',','')
+    
 
     OTP = otp_gen()
 
 
+    shky=share_key()
+    ppInstance.send(shky.encode())
+
     receivedOtp=ppInstance.recv(2048)
-    
-
-    recvotp = receivedOtp.decode()
-
+    #recvotp = receivedOtp.decode()
+    receivedOtp=receivedOtp.decode()
+    receivedOtp=eval(receivedOtp)	
+    recvotp = AES_Decrypt(receivedOtp[0],receivedOtp[1])
 
     print("RECEIVED OTP from the user :- ",recvotp)
 
 
     if recvotp == str(OTP):
-
-        ppInstance.send("True".encode())
-
+        zero=1
         zero = debcred(AccountNumber,AccountNumber2,amount)
+        if zero == 0:
+            sharekey=ppInstance.recv(2048)
+            print('shke',sharekey)
+            Plaintext='True'
+            encrypteddata=str(AES_encrypt(sharekey,Plaintext))
+            ppInstance.send(encrypteddata.encode())
+            print('feedback sent')
+        else:
+            sharekey=ppInstance.recv(2048)
+            Plaintext='False1'
+            encrypteddata=str(AES_encrypt(sharekey,Plaintext))
+            ppInstance.send(encrypteddata.encode())
+
+
 
     else:
 
-        ppInstance.send("False".encode())
+        sharekey=ppInstance.recv(2048)
+        Plaintext='False2'
+        encrypteddata=str(AES_encrypt(sharekey,Plaintext))
+        ppInstance.send(encrypteddata.encode())
 
 
     # ppInstance.close()

@@ -20,3 +20,11 @@ Type of Transaction: debit
 Time of Transaction: 2021-05-09 16:54:58.205667
 Party: 'Practo'('90000000000006')
 --------------------
+
+--------------------
+Account Number: '00000000011'
+Amount : 1246.34
+Type of Transaction: debit
+Time of Transaction: 2021-05-10 15:17:34.861574
+Party: 'Practo'('90000000000006')
+--------------------

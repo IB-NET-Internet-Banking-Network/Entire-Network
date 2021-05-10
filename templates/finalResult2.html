@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+		<body style = "background-color:rgb(60, 60, 180)">
+
+		<style>	
+		/* Create three unequal columns that floats next to each other */
+		.column {
+		float: left;
+		padding: 10px;
+		}
+		/* Middle column */
+		.column.middle {
+		width: 70%;
+		font-size:26;
+		}
+		/* Clear floats after the columns */
+		.row:after {
+		content: "";
+		display: table;
+		clear: both;
+		}
+		/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 600px) {
+		.column.side, .column.middle {
+			width: 100%;
+		}
+		}
+				body {
+		margin:1;
+		}
+		* {
+		box-sizing: border-box;
+		}
+				img.img
+				{
+					border-radius :55%;
+				}
+				.column.side 
+				{
+					max-width:400px;
+					height:175%;
+					padding-left: 40px;
+					padding-top:40px;
+					border: 1px solid black;
+					box-sizing: border-box;
+					background-color:rgb(248, 190, 88);
+					font-size:36;
+					width: 30%;
+				}
+				#pr
+				{
+					font-size:46;
+				}
+				.pink
+				
+				{
+					color:rgb(255,50,250);
+				}
+					
+		</style>
+
+		<body>
+			<div class="row">
+			
+			
+			<div class="column middle">
+			
+			<p><font size = 12><h1><center>TRANSACTION DECLINED</center></h1></font></p>
+			<p><font size = 12><h1><center>DUE TO INSUFFICIENT BALANCE</center></h1></font></p>
+			<p><font size = 12><h2><center>Thank you for using</center></h2></font></p>
+            <p><font size = 12><h3><center>IB-NET</center></h3></font></p>
+			</div>
+
+		</body>
+	</html> 

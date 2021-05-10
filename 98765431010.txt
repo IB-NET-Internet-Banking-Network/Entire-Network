@@ -18,3 +18,19 @@ Type of Transaction: credit
 Time of Transaction: 2021-05-09 16:54:58.566108
 Party: 'MANAS KUMAR MISHRA'('00000000011')
 --------------------
+
+--------------------
+Account Number: 90000000000011
+Amount : 12.339999999999918
+Type of Transaction: credit
+Time of Transaction: 2021-05-10 15:17:35.279104
+Party: 'MANAS KUMAR MISHRA'('00000000011')
+--------------------
+
+--------------------
+Account Number: 90000000000011
+Amount : 12.339999999999918
+Type of Transaction: credit
+Time of Transaction: 2021-05-10 15:19:51.966025
+Party: 'KARTHIKA RAJESH'('00000000026')
+--------------------

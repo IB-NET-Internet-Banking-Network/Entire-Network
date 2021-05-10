@@ -7,6 +7,8 @@ from flask import Flask, render_template, url_for, request, redirect
 from random import randint
 from socket import*
 from datetime import datetime
+from AES_Encrypt import*  #Python file name for encryption
+from AES_Decrypt import*  #Python file name for decryption
 
 
 # Estiblish the connection to the payment processor
@@ -40,24 +42,51 @@ def sendData(fullData, paymentAmount):
 
     # Todo:- encryption
 
-    paygateSocket.send(fulldata.encode())
+
+     # encryption of user data
+    Plaintext=str(fullData[0])
+    for i in range(1,len(fullData)):
+        Plaintext=Plaintext+','+fullData[i]
+    print('plaintext: ',Plaintext)
+
+    shkey=paygateSocket.recv(2048)
+    encrypteddata=str(AES_encrypt(shkey,Plaintext))
+    paygateSocket.send(encrypteddata.encode())
+    #paygateSocket.send(fulldata.encode())
     print("User information sent to the payment processor, and waiting for confirmation...")
    
     # confirmation
     
     # Todo :- Decryption
+
+    Confirmmes=share_key()
+    paygateSocket.send(Confirmmes.encode())
+
     confirmation = paygateSocket.recv(2048)
+    conf=confirmation.decode()
+    conf=eval(conf)
+    mes=AES_Decrypt(conf[0],conf[1])
+    print('feedback: ',mes)
+
+    #confirmation = paygateSocket.recv(2048)
     # print("Response received...")
     # print(confirmation.decode())
     
-    if confirmation.decode()=="True":
-        paygateSocket.send(str(paymentAmount).encode())
+    if mes=="True":
+        Plaintext=str(paymentAmount[0])
+        for i in range(1,len(paymentAmount)):
+            Plaintext=Plaintext+','+paymentAmount[i]
+        print('plaintext: ',Plaintext)
+        shkey=paygateSocket.recv(2048)        
+        encrypteddata = str(AES_encrypt(shkey,Plaintext))
+        paygateSocket.send(encrypteddata.encode())
+        
         print(" Amount Data sent... :- )")
     else:
         print("Amount data stop here, confirmation error!!!")
     paygateSocket.close()
 
-    return confirmation.decode()
+    return mes
 
 
 def send_otp(UserOTP):
@@ -72,12 +101,25 @@ def send_otp(UserOTP):
     except:
         print("Not able to connect the payment processor!!!")
     
+    #otp encryption
+    
     userotp = str(UserOTP)
+    sharekey=otpsocket.recv(2048)
+    encrypteddata=AES_encrypt(sharekey,userotp)
+    otpsocket.send(str(encrypteddata).encode()) 
+    #otpsocket.send(userotp.encode())
+    print("otp sent")
 
-    otpsocket.send(userotp.encode())
+    #send public key for encryption
+    Confirmmes=share_key()
+    otpsocket.send(Confirmmes.encode())
+
+    #decrypting feedback from TPS
     CHeck=otpsocket.recv(1024)
     check = CHeck.decode()
-
+    
+    conf=eval(check)
+    check=AES_Decrypt(conf[0],conf[1])
     otpsocket.close()
     return check
 
@@ -332,8 +374,11 @@ def paid():
         if check == "True":
             print("Correct OTP, your are paying...")
             return (render_template('finalResult.html'))
+        elif check == "False1":
+            print("Correct OTP, but insufficient balance")
+            return (render_template('finalResult2.html'))
         else:
-            print("Worng OTP, payment failed !!!")
+            print("Wrong OTP, payment failed !!!")
             return f"""<h1>WRONG OTP... payment failed !!! :( </h1>"""
        
     else:

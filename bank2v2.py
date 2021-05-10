@@ -1,7 +1,24 @@
 import pymysql 
 from socket import *
 import datetime
-a=datetime.datetime.now();
+from AES_Encrypt import*  #Python file name for encryption
+from AES_Decrypt import*  #Python file name for decryption
+
+#function for unsuccessful cases
+def unsuccessful():
+    conn.commit()
+    conn.close()
+    sharekey=connectionSocket.recv(2048)        
+    Plaintext="Transaction Unsuccessfull"
+    encrypteddata=str(AES_encrypt(sharekey,Plaintext))
+    connectionSocket.send(encrypteddata.encode())
+    b=datetime.datetime.now()
+    print(" Elapsed time : ")
+    print(b-a)
+    connectionSocket.close()
+
+
+a=datetime.datetime.now()
 serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.bind(('', serverPort))
@@ -10,9 +27,16 @@ print ("The server is ready to receive")
 while 1:
         connectionSocket, addr = serverSocket.accept()
         print("Connection Accepted")
-        sentence = connectionSocket.recv(2048)
+
+        shky=share_key()
+        connectionSocket.send(shky.encode())
+        sentence=connectionSocket.recv(2048)
         print("Sentence Received")
-        sentence=sentence.decode().split()
+        sentence=sentence.decode()
+        sentence=eval(sentence)	
+        sentence = AES_Decrypt(sentence[0],sentence[1])
+        sentence=sentence.split()
+
         account=sentence[0]
         tt=sentence[1]
         print("Transaction Type:")
@@ -32,22 +56,27 @@ while 1:
                     
             else:
                     print(" Low Balance")
-                    conn.commit()
-                    conn.close()
+                    unsuccessful()
+                    continue
         elif(tt=='credit'):
             balance=balance + amount
             print("Updated Balance :")
             print(balance)
         else:
             print("illegal operation")
-            conn.commit()
-            conn.close()
+            unsuccessful()
+            continue
         update="update bank2 set balance = "+str(balance)+" where AccountNumber = "+account
         cur.execute(update)
         update="update bank2 set lastt = now() where AccountNumber = "+account
         cur.execute(update)
-        connectionSocket.send("Transaction over".encode())
-        b=datetime.datetime.now();
+
+        sharekey=connectionSocket.recv(2048)        
+        Plaintext="Transaction over Successfully"
+        encrypteddata=str(AES_encrypt(sharekey,Plaintext))
+        connectionSocket.send(encrypteddata.encode())
+
+
         cur.execute("select CIF from bank2 where AccountNumber = " + account) 
         CIF = str(cur.fetchall()).replace('(','').replace(')','').replace(',','').replace("'","")
         cur.execute("select Name from bank where AccountNumber = " + account2) 
@@ -58,13 +87,14 @@ while 1:
         f.write("Account Number: "+account+"\n")
         f.write("Amount : "+str(amount)+"\n")
         f.write("Type of Transaction: "+tt+"\n")
-        f.write("Time of Transaction: "+str(b)+"\n")
+        f.write("Time of Transaction: "+str(datetime.datetime.now())+"\n")
         f.write("Party: "+Party+"("+account2+")"+"\n")
         f.write("--------------------\n")
         f.close()
         conn.commit()
         conn.close()
         
+        b=datetime.datetime.now()
         print(" Elapsed time : ")
         print(b-a)
         connectionSocket.close()
