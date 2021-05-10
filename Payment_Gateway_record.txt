@@ -507,3 +507,13 @@
 **Paying to            : MakeMyTrip
 **Time of transaction  : 2021-05-10 15:19:41.282914
 ---------------------------------------------------------
+-------------------------------------------------------
+**Login user           : GANESH
+**Card number          : 1001 0110 2002 0006
+**Expiry Date          : 2023-07-31
+**CVV number           : 002
+**Card holder name     : GANESH T S
+**Amount Requested     : 1234
+**Paying to            : IRCTC
+**Time of transaction  : 2021-05-10 16:54:28.845126
+---------------------------------------------------------

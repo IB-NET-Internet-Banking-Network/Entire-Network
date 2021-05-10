@@ -1,7 +1,7 @@
 import pymysql 
 from socket import *
 import datetime
-from AES_Encrypt import*  #Python file name for encryption
+from AES_encrypt import*  #Python file name for encryption
 from AES_Decrypt import*  #Python file name for decryption
 
 #function for unsuccessful cases

@@ -8,7 +8,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from random import randint
 from socket import*
 from datetime import datetime
-from AES_Encrypt import*  #Python file name for encryption
+from AES_encrypt import*  #Python file name for encryption
 from AES_Decrypt import*  #Python file name for decryption
 
 
