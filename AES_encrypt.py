@@ -4,7 +4,7 @@ import secrets
 from socket import*
 #import pickle
 
-'''Public and Private key Generation using Elliptic curve cryptography'''
+'''Public and Private key Generation using elliptic curve cryptography'''
 def Elliptic_crypto():
     curve = registry.get_curve('secp256r1')#standard elliptic curves
     privkey = secrets.randbelow(curve.field.n)    
