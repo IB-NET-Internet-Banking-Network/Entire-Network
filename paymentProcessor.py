@@ -6,7 +6,7 @@ Begin date :- 21-March-2021
 
 from socket import*
 from random import randint
-from AES_Encrypt import*  #Python file name for encryption
+from AES_encrypt import*  #Python file name for encryption
 from AES_Decrypt import*  #Python file name for decryption
 
 global dataofUsers
